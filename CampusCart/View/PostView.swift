@@ -79,6 +79,7 @@ struct PostView: View {
     @State var description: String = ""
     @State var price: Int = 0
     @State var imageUploaded: Bool = true
+    @State private var selectedItem: PhotosPickerItem? = nil
     
     @StateObject private var viewModel = PhotoPickerViewModel()
     
@@ -114,10 +115,13 @@ struct PostView: View {
                         }
                     }
                 }
-            }
+            }/*
             PhotosPicker(selection: $viewModel.imageSelections,matching:.images){
                 Text("Upload Images")
                     .foregroundColor(.red)
+            }*/
+            PhotosPicker(selection: $selectedItem,matching: .images, photoLibrary: .shared()){
+                Text("Select a photo")
             }
             Text("Required")
                 .frame(maxWidth: .infinity, alignment: .leading)
