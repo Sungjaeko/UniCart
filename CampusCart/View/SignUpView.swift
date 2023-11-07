@@ -17,6 +17,7 @@ struct SignUpView: View {
     @State var confirmPassword: String = ""
     @EnvironmentObject var viewModel: AuthViewModel
     
+    
     var body: some View {
         NavigationStack {
             ZStack {

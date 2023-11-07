@@ -9,14 +9,15 @@ import SwiftUI
 
 struct MainView: View {
     @EnvironmentObject var viewModel: AuthViewModel
+
     //@Binding var listModel: ListViewModel
     var body: some View {
         //Text("Current Home view")
         TabView{
 //            HomeView()
-            Text("Home")
+            HomeView()
                 .tabItem{
-//                    Label("Home",systemImage: "house.fill")
+                    Label("Home",systemImage: "house.fill")
                     Image(systemName: "house")
                 }
             //let listModel = ListViewModel()

@@ -124,7 +124,7 @@ struct LoginView: View {
                 .padding()
                     Spacer()
     
-                NavigationLink(destination: MainView()){
+                    NavigationLink(destination: MainView()){
                     Text("Bypass Login")
                 }
                     

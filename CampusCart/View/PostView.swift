@@ -72,14 +72,15 @@ import Firebase
 
 
 struct PostView: View {
-    @Binding var listings: [ImageListing]
+    //@Binding var listings: [ImageListing]
     let db = Firestore.firestore()
     @EnvironmentObject var viewModel: PhotoPickerViewModel
     @State var itemName: String = ""
     @State var description: String = ""
     @State var price: Int = 0
-    @State var imageUploaded: Bool = true
+    //@State var imageUploaded: Bool = true
     @State private var selectedItem: PhotosPickerItem? = nil
+    @StateObject private var newListing = ImgListing()
     
     //@StateObject private var viewModel = PhotoPickerViewModel()
     
@@ -144,19 +145,24 @@ struct PostView: View {
             
             Button("Submit"){
                 let randomId = randomString(length: 10)
-                let newData = ImageListing(id: randomId,title: itemName,description: description,price: price)
+                /*let newData = ImageListing(id: randomId,title: itemName,description: description,price: price)*/
+                newListing.id = randomId
+                newListing.title = itemName
+                newListing.description = description
+                newListing.price = price
                 let collectionReference = db.collection("listings")
                 collectionReference.addDocument(data:[
-                    "id": newData.id,
-                    "title": newData.title,
-                    "description": newData.description,
-                    "price": newData.price])
+                    "id": newListing.id,
+                    "title": newListing.title,
+                    "description": newListing.description,
+                    "price": newListing.price])
                 
+                /*
                 listings.insert(ImageListing(
-                    id: newData.id,
-                    title: newData.title,
-                    description: newData.description,
-                    price: newData.price), at: 0)
+                    id: newListing.id,
+                    title: newListing.title,
+                    description: newListing.description,
+                    price: newListing.price), at: 0)*/
                 //ItemsView(listModel: listModel)
             }
             
@@ -180,7 +186,8 @@ struct PostView: View {
 struct PostView_Previews: PreviewProvider {
     @State static var listings: [ImageListing] = []
     static var previews: some View {
-        PostView(listings: $listings)
+        PostView()
             .environmentObject(PhotoPickerViewModel())
+            .environmentObject(ImgListing())
     }
 }

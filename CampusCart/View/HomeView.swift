@@ -10,6 +10,7 @@ import SwiftUI
 struct HomeView: View {
     @State var isHolding = true
     @State var search: String = ""
+
     var body: some View {
         ZStack{
 //            Color.gray
@@ -40,11 +41,9 @@ struct HomeView: View {
                                 print("Button pressed")
                                 
                             }){
-                                //let listModel = ListViewModel()
-                                /*
-                                NavigationLink(destination: ItemsView(listings: $listings)){
+                                NavigationLink(destination: ItemsView()){
                                     HomeViewButtonView(text: "Items", imageName: "cart", isHolding: isHolding)
-                                }*/
+                                }
                             }
                             
                             Button(action: {

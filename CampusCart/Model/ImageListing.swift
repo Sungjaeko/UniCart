@@ -13,6 +13,6 @@ struct ImageListing: Hashable, Codable, Identifiable {
     var title: String
     var description: String
     var price: Int
-    var profileImageUrl: String?
+    //var profileImageUrl: String?
     
 }

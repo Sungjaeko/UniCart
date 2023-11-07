@@ -20,38 +20,36 @@ class ListViewModel: ObservableObject{
 
 
 struct ItemsView: View {
-    @State var listings: [ImageListing]
+    //@State var listings: [ImageListing]
+    @StateObject private var newListing = ImgListing()
+    
     var body: some View {
+        
         NavigationView{
             VStack{
-                NavigationLink(destination: PostView(listings: $listings)){
+                NavigationLink(destination: PostView()){
                     Text("New Post")
                 }
-                
+                /*
                 List{
                     ForEach(listings){
                         listing in Text(listing.title)
                     }
                 }
-                .navigationBarTitle("Items")
+                .navigationBarTitle("Items")*/
                 
             }
         }
     }
 }
-
+/*
 func insertImage() async throws {
   
-}
+}*/
 
 struct ItemsView_Previews: PreviewProvider {
     
     static var previews: some View {
-        //let listModel = ListViewModel()
-        ItemsView(listings:[ImageListing(
-            id: "2",
-            title: "Default",
-            description: "Def Description",
-            price: 2)])
+        ItemsView()
     }
 }
