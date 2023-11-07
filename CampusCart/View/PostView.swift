@@ -9,79 +9,79 @@ import SwiftUI
 import PhotosUI
 import Firebase
 
-@MainActor
-final class PhotoPickerViewModel: ObservableObject{
-    
-    @Published private(set) var selectedImage: UIImage? = nil
-    @Published var imageSelection: PhotosPickerItem? = nil{
-        didSet{
-            setImage(from: imageSelection)
-        }
-    }
-    
-    @Published private(set) var selectedImages: [UIImage] = []
-    @Published var imageSelections: [PhotosPickerItem] = [] {
-        didSet{
-            setImages(from: imageSelections)
-        }
-    }
-    
-    private func setImage(from selection: PhotosPickerItem?){
-        guard let selection else {return}
-        
-        Task{
-            //            if let data = try? await selection.loadTransferable(type: Data.self){
-            //                if let uiImage = UIImage(data: data){
-            //                    selectedImage = uiImage
-            //                    return
-            //                }
-            //            }
-            do {
-                let data = try? await selection.loadTransferable(type: Data.self)
-                
-                guard let data, let uiImage = UIImage(data: data) else {
-                    throw URLError(.badServerResponse)
-                }
-                
-                selectedImage = uiImage
-            } catch {
-                print(error)
-            }
-        }
-        
-    }
-    
-    private func setImages(from selections: [PhotosPickerItem]) {
-        Task {
-            var images: [UIImage] = []
-            for selection in selections {
-                if let data = try? await selection.loadTransferable(type: Data.self){
-                    if let uiImage = UIImage(data: data){
-                        images.append(uiImage)
-                        
-                    }
-                }
-            }
-            selectedImages = images
-        }
-        
-    }
-    
-}
+//@MainActor
+//final class PhotoPickerViewModel: ObservableObject{
+//
+//    @Published private(set) var selectedImage: UIImage? = nil
+//    @Published var imageSelection: PhotosPickerItem? = nil{
+//        didSet{
+//            setImage(from: imageSelection)
+//        }
+//    }
+//
+//    @Published private(set) var selectedImages: [UIImage] = []
+//    @Published var imageSelections: [PhotosPickerItem] = [] {
+//        didSet{
+//            setImages(from: imageSelections)
+//        }
+//    }
+//
+//    private func setImage(from selection: PhotosPickerItem?){
+//        guard let selection else {return}
+//
+//        Task{
+//            //            if let data = try? await selection.loadTransferable(type: Data.self){
+//            //                if let uiImage = UIImage(data: data){
+//            //                    selectedImage = uiImage
+//            //                    return
+//            //                }
+//            //            }
+//            do {
+//                let data = try? await selection.loadTransferable(type: Data.self)
+//
+//                guard let data, let uiImage = UIImage(data: data) else {
+//                    throw URLError(.badServerResponse)
+//                }
+//
+//                selectedImage = uiImage
+//            } catch {
+//                print(error)
+//            }
+//        }
+//
+//    }
+//
+//    private func setImages(from selections: [PhotosPickerItem]) {
+//        Task {
+//            var images: [UIImage] = []
+//            for selection in selections {
+//                if let data = try? await selection.loadTransferable(type: Data.self){
+//                    if let uiImage = UIImage(data: data){
+//                        images.append(uiImage)
+//
+//                    }
+//                }
+//            }
+//            selectedImages = images
+//        }
+//
+//    }
+//
+//}
 
 
 
 struct PostView: View {
     @Binding var listings: [ImageListing]
     let db = Firestore.firestore()
-//    @EnvironmentObject var viewModel: PhotoPickerViewModel
+    @EnvironmentObject var viewModel: PhotoPickerViewModel
     @State var itemName: String = ""
     @State var description: String = ""
     @State var price: Int = 0
     @State var imageUploaded: Bool = true
     @State private var selectedItem: PhotosPickerItem? = nil
     
-    @StateObject private var viewModel = PhotoPickerViewModel()
+    //@StateObject private var viewModel = PhotoPickerViewModel()
     
     var body: some View {
         VStack{
@@ -181,5 +181,6 @@ struct PostView_Previews: PreviewProvider {
     @State static var listings: [ImageListing] = []
     static var previews: some View {
         PostView(listings: $listings)
+            .environmentObject(PhotoPickerViewModel())
     }
 }
