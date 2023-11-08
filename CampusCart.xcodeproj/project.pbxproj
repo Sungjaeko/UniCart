@@ -16,6 +16,7 @@
 		2B3AEF252AB9A279006D928B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B3AEF242AB9A279006D928B /* Assets.xcassets */; };
 		2B3AEF282AB9A279006D928B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B3AEF272AB9A279006D928B /* Preview Assets.xcassets */; };
 		2B5C77602AFAF9210046C1D3 /* ImgListing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5C775F2AFAF9210046C1D3 /* ImgListing.swift */; };
+		2B5C77632AFB0EA90046C1D3 /* PostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5C77622AFB0EA90046C1D3 /* PostViewModel.swift */; };
 		2BD7C2AE2AC50B830042F09D /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD7C2AD2AC50B830042F09D /* LoginView.swift */; };
 		2BFA4A822ACD410A006E4D9F /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BFA4A812ACD410A006E4D9F /* ProfileView.swift */; };
 		2BFA4A842ACD420E006E4D9F /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BFA4A832ACD420E006E4D9F /* PostView.swift */; };
@@ -56,6 +57,8 @@
 		2B3AEF242AB9A279006D928B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2B3AEF272AB9A279006D928B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		2B5C775F2AFAF9210046C1D3 /* ImgListing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImgListing.swift; sourceTree = "<group>"; };
+		2B5C77612AFB06450046C1D3 /* CampusCart.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CampusCart.entitlements; sourceTree = "<group>"; };
+		2B5C77622AFB0EA90046C1D3 /* PostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewModel.swift; sourceTree = "<group>"; };
 		2BD7C2AD2AC50B830042F09D /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LoginView.swift; path = "../New Group/LoginView.swift"; sourceTree = "<group>"; };
 		2BFA4A812ACD410A006E4D9F /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		2BFA4A832ACD420E006E4D9F /* PostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
@@ -123,6 +126,7 @@
 		2B3AEF1F2AB9A277006D928B /* CampusCart */ = {
 			isa = PBXGroup;
 			children = (
+				2B5C77612AFB06450046C1D3 /* CampusCart.entitlements */,
 				B458A3D42AF559F50024B0C2 /* Storage */,
 				68BBB42F2AE2EFF200F19F21 /* Helpers */,
 				687787102ACA21E000356E67 /* View */,
@@ -194,6 +198,7 @@
 				68214C972AEC3854007BE07B /* NoImageListing.swift */,
 				68214CA12AEF9195007BE07B /* PhotoPickerViewModel.swift */,
 				2B5C775F2AFAF9210046C1D3 /* ImgListing.swift */,
+				2B5C77622AFB0EA90046C1D3 /* PostViewModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -312,6 +317,7 @@
 				B458A3D62AF55A160024B0C2 /* StorageManager.swift in Sources */,
 				2B5C77602AFAF9210046C1D3 /* ImgListing.swift in Sources */,
 				2BFA4A822ACD410A006E4D9F /* ProfileView.swift in Sources */,
+				2B5C77632AFB0EA90046C1D3 /* PostViewModel.swift in Sources */,
 				68BBB4312AE2F5F000F19F21 /* Photo.swift in Sources */,
 				2BFA4A842ACD420E006E4D9F /* PostView.swift in Sources */,
 				687787122ACA3A4B00356E67 /* SignUpView.swift in Sources */,
@@ -441,10 +447,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = CampusCart/CampusCart.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"CampusCart/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 38W8XQTK7P;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -459,6 +467,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = edu.lmu.campuscart;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -470,10 +479,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = CampusCart/CampusCart.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"CampusCart/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 38W8XQTK7P;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -488,6 +499,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = edu.lmu.campuscart;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

@@ -74,7 +74,8 @@ import Firebase
 struct PostView: View {
     //@Binding var listings: [ImageListing]
     let db = Firestore.firestore()
-    @EnvironmentObject var viewModel: PhotoPickerViewModel
+    //@EnvironmentObject var viewModel: PhotoPickerViewModel
+    @StateObject private var viewModel = PostViewModel()
     @State var itemName: String = ""
     @State var description: String = ""
     @State var price: Int = 0
@@ -93,6 +94,7 @@ struct PostView: View {
                     RoundedRectangle(cornerRadius: 22)
                         .stroke(.gray.opacity(0.6), lineWidth: 2)
                 }
+            /*
             if let image = viewModel.selectedImage{
                 Image(uiImage: image)
                     .resizable()
@@ -116,7 +118,7 @@ struct PostView: View {
                         }
                     }
                 }
-            }/*
+            }
             PhotosPicker(selection: $viewModel.imageSelections,matching:.images){
                 Text("Upload Images")
                     .foregroundColor(.red)
@@ -124,6 +126,11 @@ struct PostView: View {
             PhotosPicker(selection: $selectedItem,matching: .images, photoLibrary: .shared()){
                 Text("Select a photo")
             }
+            .onChange(of: selectedItem, perform: {newValue in
+                if let newValue {
+                    viewModel.savePostImage(item: newValue)
+                }
+            })
             Text("Required")
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .font(.system(size:30, weight: .bold, design: .rounded))
