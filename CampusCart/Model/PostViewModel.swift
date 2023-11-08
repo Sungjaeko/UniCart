@@ -5,11 +5,18 @@
 //  Created by Bryan Apodaca on 11/7/23.
 //
 
-import Foundation
-import PhotosUI
 import SwiftUI
+import Foundation
+import Firebase
+import PhotosUI
 
 class PostViewModel: ObservableObject{
+    @Published private(set) var selectedImages: [UIImage] = []
+    @Published var imageSelections: [PhotosPickerItem] = [] {
+        didSet{
+            setImages(from: imageSelections)
+        }
+    }
     
     func savePostImage(item: PhotosPickerItem){
         
@@ -20,5 +27,20 @@ class PostViewModel: ObservableObject{
             print(path)
             print(name)
         }
+    }
+    func setImages(from selections: [PhotosPickerItem]) {
+        Task {
+            var images: [UIImage] = []
+            for selection in selections {
+                if let data = try? await selection.loadTransferable(type: Data.self){
+                    if let uiImage = UIImage(data: data){
+                        images.append(uiImage)
+                        
+                    }
+                }
+            }
+            selectedImages = images
+        }
+        
     }
 }

@@ -74,11 +74,12 @@ import Firebase
 struct PostView: View {
     //@Binding var listings: [ImageListing]
     let db = Firestore.firestore()
-    //@EnvironmentObject var viewModel: PhotoPickerViewModel
+    @EnvironmentObject var photoViewModel: PhotoPickerViewModel
     @StateObject private var viewModel = PostViewModel()
     @State var itemName: String = ""
     @State var description: String = ""
     @State var price: Int = 0
+    @State var condition = ["New", "Used - Like New", "Used - Good", "Used - Fair"]
     //@State var imageUploaded: Bool = true
     @State private var selectedItem: PhotosPickerItem? = nil
     @StateObject private var newListing = ImgListing()
@@ -86,97 +87,123 @@ struct PostView: View {
     //@StateObject private var viewModel = PhotoPickerViewModel()
     
     var body: some View {
-        VStack{
-            TextField("Title",text:$itemName).foregroundColor(.gray.opacity(0.9))
-                .frame(width: 320)
-                .padding(14)
-                .overlay{
-                    RoundedRectangle(cornerRadius: 22)
-                        .stroke(.gray.opacity(0.6), lineWidth: 2)
-                }
-            /*
-            if let image = viewModel.selectedImage{
-                Image(uiImage: image)
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width:200,height:200)
-                    .cornerRadius(10)
-            }
-//            PhotosPicker(selection: $viewModel.imageSelection,matching:.images){
-//                Text("Upload Image")
-//                    .foregroundColor(.red)
-//            }
-            if !viewModel.selectedImages.isEmpty {
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack{
-                        ForEach(viewModel.selectedImages, id: \.self) { image in
-                            Image(uiImage: image)
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width:200,height:200)
-                                .cornerRadius(10)
+        NavigationView {
+            ScrollView {
+                VStack (alignment: .center) {
+                    if let image = photoViewModel.selectedImage{
+                        Image(uiImage: image)
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width:200,height:200)
+                            .cornerRadius(10)
+                    }
+                    //            PhotosPicker(selection: $viewModel.imageSelection,matching:.images){
+                    //                Text("Upload Image")
+                    //                    .foregroundColor(.red)
+                    //            }
+                    if !photoViewModel.selectedImages.isEmpty {
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack{
+                                ForEach(photoViewModel.selectedImages, id: \.self) { image in
+                                    Image(uiImage: image)
+                                        .resizable()
+                                        .scaledToFill()
+                                        .frame(width:200,height:200)
+                                        .cornerRadius(10)
+                                }
+                            }
                         }
                     }
-                }
-            }
-            PhotosPicker(selection: $viewModel.imageSelections,matching:.images){
-                Text("Upload Images")
-                    .foregroundColor(.red)
-            }*/
-            PhotosPicker(selection: $selectedItem,matching: .images, photoLibrary: .shared()){
-                Text("Select a photo")
-            }
-            .onChange(of: selectedItem, perform: {newValue in
-                if let newValue {
-                    viewModel.savePostImage(item: newValue)
+                    //                PhotosPicker(selection: $photoViewModel.imageSelections,matching:.images){
+                    //                    Text("Upload Images")
+                    //                        .foregroundColor(.red)
+                    //                }
+                    //                .onChange(of: selectedItem, perform: {newValue in
+                    //                    if let newValue {
+                    //                        viewModel.savePostImage(item: newValue)
+                    //
+                    //                    }
+                    //                })
+                    PhotosPicker(selection: $selectedItem,matching: .images, photoLibrary: .shared()){
+                        Text("Select a photo")
+                    }
+                    .onChange(of: selectedItem, perform: {newValue in
+                        if let newValue {
+                            viewModel.savePostImage(item: newValue)
+                            
+                        }
+                    })
+                    
+                    Text("Required")
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .font(.system(size:30, weight: .bold, design: .rounded))
+                        .padding()
+                    TextField("Title",text:$itemName)
+                        .frame(width: .infinity)
+                        .padding(14)
+                        .overlay{
+                            RoundedRectangle(cornerRadius: 9)
+                                .stroke(.gray.opacity(0.6), lineWidth: 2)
+                        }
+                        .padding()
+                    TextField("Price",value: $price, format:.number)
+                        .frame(width: .infinity)
+                        .padding(14)
+                        .overlay{
+                            RoundedRectangle(cornerRadius: 9)
+                                .stroke(.gray.opacity(0.6), lineWidth: 2)
+                        }
+                        .padding()
+                    TextField("Description",text:$description).foregroundColor(.gray.opacity(0.9))
+                        .frame(width: .infinity,height:150,alignment:.top)
+                        .padding(14)
+                        .overlay{
+                            RoundedRectangle(cornerRadius: 9)
+                                .stroke(.gray.opacity(0.6), lineWidth: 2)
+                        }
+                        .padding()
+                    Button {
+                        let randomId = randomString(length: 10)
+                        /*let newData = ImageListing(id: randomId,title: itemName,description: description,price: price)*/
+                        newListing.id = randomId
+                        newListing.title = itemName
+                        newListing.description = description
+                        newListing.price = price
+                        let collectionReference = db.collection("listings")
+                        collectionReference.addDocument(data:[
+                            "id": newListing.id,
+                            "title": newListing.title,
+                            "description": newListing.description,
+                            "price": newListing.price])
+                        
+                        /*
+                         listings.insert(ImageListing(
+                         id: newListing.id,
+                         title: newListing.title,
+                         description: newListing.description,
+                         price: newListing.price), at: 0)*/
+                        //ItemsView(listModel: listModel)
+                    } label: {
+                        Text("Submit")
+                            .font(.title2)
+                            .bold()
+                            .foregroundColor(.white)
+                    }
+                    .frame(height:50)
+                    .frame(maxWidth: 300)
+                    .background(Color.blue)
+                        //                .background(
+                        //                    LinearGradient(colors: [.red,.blue],startPoint: .topLeading,endPoint: .bottomTrailing)
+                        //                )
+                    .cornerRadius(9)
+                    .shadow(radius: 4 , x: 2, y: 3)
+                    .padding()
                     
                 }
-            })
-            
-            Text("Required")
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .font(.system(size:30, weight: .bold, design: .rounded))
-            Text("Set Price")
-            TextField("$$$",value: $price, format:.number).foregroundColor(.gray.opacity(0.9))
-                .frame(width: 100)
-                .padding(14)
-                .overlay{
-                    RoundedRectangle(cornerRadius: 22)
-                        .stroke(.gray.opacity(0.6), lineWidth: 2)
-                }
-            TextField("Description",text:$description).foregroundColor(.gray.opacity(0.9))
-                .frame(width: 320,height:150,alignment:.top)
-                .padding(14)
-                .overlay{
-                    RoundedRectangle(cornerRadius: 22)
-                        .stroke(.gray.opacity(0.6), lineWidth: 2)
-                }
-            
-            Button("Submit"){
-                let randomId = randomString(length: 10)
-                /*let newData = ImageListing(id: randomId,title: itemName,description: description,price: price)*/
-                newListing.id = randomId
-                newListing.title = itemName
-                newListing.description = description
-                newListing.price = price
-                let collectionReference = db.collection("listings")
-                collectionReference.addDocument(data:[
-                    "id": newListing.id,
-                    "title": newListing.title,
-                    "description": newListing.description,
-                    "price": newListing.price])
-                
-                /*
-                listings.insert(ImageListing(
-                    id: newListing.id,
-                    title: newListing.title,
-                    description: newListing.description,
-                    price: newListing.price), at: 0)*/
-                //ItemsView(listModel: listModel)
             }
-            
+            .navigationTitle("New Listing")
+            .navigationBarTitleDisplayMode(.large)
         }
-        
     }
     func randomString(length: Int) -> String {
         let characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
