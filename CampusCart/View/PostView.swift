@@ -76,10 +76,11 @@ struct PostView: View {
     let db = Firestore.firestore()
     @EnvironmentObject var photoViewModel: PhotoPickerViewModel
     @StateObject private var viewModel = PostViewModel()
+    @State private var condition: DropdownMenuOption? = nil
     @State var itemName: String = ""
     @State var description: String = ""
     @State var price: Int = 0
-    @State var condition = ["New", "Used - Like New", "Used - Good", "Used - Fair"]
+    //@State var condition = ["New", "Used - Like New", "Used - Good", "Used - Fair"]
     //@State var imageUploaded: Bool = true
     @State private var selectedItem: PhotosPickerItem? = nil
     @StateObject private var newListing = ImgListing()
@@ -146,6 +147,10 @@ struct PostView: View {
                                 .stroke(.gray.opacity(0.6), lineWidth: 2)
                         }
                         .padding()
+                    DropdownMenu(
+                        selectedOption: self.$condition,
+                        placeholder: "Select your condition",
+                        options: DropdownMenuOption.testAllConditions)
                     TextField("Price",value: $price, format:.number)
                         .frame(width: .infinity)
                         .padding(14)
@@ -163,6 +168,7 @@ struct PostView: View {
                         }
                         .padding()
                     Button {
+                        
                         let randomId = randomString(length: 10)
                         /*let newData = ImageListing(id: randomId,title: itemName,description: description,price: price)*/
                         newListing.id = randomId
