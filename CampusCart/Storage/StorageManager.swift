@@ -10,7 +10,7 @@ import FirebaseStorage
 
 final class StorageManager{
     static let shared = StorageManager()
-    private init() {}
+    private init() { }
     
     private let storage = Storage.storage().reference()
     
@@ -19,7 +19,7 @@ final class StorageManager{
         meta.contentType = "image/jpeg"
         let path = "\(UUID().uuidString).jpeg"
         
-        let returnedMetaData = try await storage.child(path).putDataAsync(data, metadata:meta)
+        let returnedMetaData = try await storage.child(path).putDataAsync(data, metadata: meta)
         
         guard let returnedPath = returnedMetaData.path, let returnedName = returnedMetaData.name else{
             throw URLError(.badServerResponse)

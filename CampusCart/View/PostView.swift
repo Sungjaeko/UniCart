@@ -129,8 +129,10 @@ struct PostView: View {
             .onChange(of: selectedItem, perform: {newValue in
                 if let newValue {
                     viewModel.savePostImage(item: newValue)
+                    
                 }
             })
+            
             Text("Required")
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .font(.system(size:30, weight: .bold, design: .rounded))
