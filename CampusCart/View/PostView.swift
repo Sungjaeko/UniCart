@@ -85,6 +85,7 @@ struct PostView: View {
     @State private var selectedItem: PhotosPickerItem? = nil
     @State private var selectedItems: [PhotosPickerItem] = []
     @StateObject private var newListing = ImgListing()
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
         
     var body: some View {
         NavigationView {
@@ -162,7 +163,7 @@ struct PostView: View {
                             "description": newListing.description,
                             "price": newListing.price,
                             "condition": newListing.condition])
-                        
+                        self.presentationMode.wrappedValue.dismiss()
                         
                     } label: {
                         Text("Submit")
