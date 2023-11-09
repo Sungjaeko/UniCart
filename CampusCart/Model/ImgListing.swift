@@ -12,4 +12,5 @@ class ImgListing: ObservableObject{
     @Published var title: String = ""
     @Published var description: String = ""
     @Published var price: Int = 0
+    @Published var condition = ""
 }

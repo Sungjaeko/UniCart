@@ -150,12 +150,14 @@ struct PostView: View {
                         newListing.title = itemName
                         newListing.description = description
                         newListing.price = price
+                        newListing.condition = condition?.option ?? "No Condition"
                         let collectionReference = db.collection("listings")
                         collectionReference.addDocument(data:[
                             "id": newListing.id,
                             "title": newListing.title,
                             "description": newListing.description,
-                            "price": newListing.price])
+                            "price": newListing.price,
+                            "condition": newListing.condition])
                         
                         
                     } label: {
