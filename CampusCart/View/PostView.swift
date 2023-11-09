@@ -85,24 +85,12 @@ struct PostView: View {
     @State private var selectedItem: PhotosPickerItem? = nil
     @State private var selectedItems: [PhotosPickerItem] = []
     @StateObject private var newListing = ImgListing()
-    
-    //@StateObject private var viewModel = PhotoPickerViewModel()
-    
+        
     var body: some View {
         NavigationView {
             ScrollView {
                 VStack (alignment: .center) {
-                    if let image = photoViewModel.selectedImage{
-                        Image(uiImage: image)
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width:200,height:200)
-                            .cornerRadius(10)
-                    }
-                    //            PhotosPicker(selection: $viewModel.imageSelection,matching:.images){
-                    //                Text("Upload Image")
-                    //                    .foregroundColor(.red)
-                    //            }
+                    
                     if !photoViewModel.selectedImages.isEmpty {
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack{
@@ -116,18 +104,8 @@ struct PostView: View {
                             }
                         }
                     }
-                    //                PhotosPicker(selection: $photoViewModel.imageSelections,matching:.images){
-                    //                    Text("Upload Images")
-                    //                        .foregroundColor(.red)
-                    //                }
-                    //                .onChange(of: selectedItem, perform: {newValue in
-                    //                    if let newValue {
-                    //                        viewModel.savePostImage(item: newValue)
-                    //
-                    //                    }
-                    //                })
                     
-                    PhotosPicker(selection: $selectedItems, matching: .images, photoLibrary: .shared()){
+                    PhotosPicker(selection: $photoViewModel.imageSelections, matching: .images, photoLibrary: .shared()){
                         Text("Select photos")
                     }
                     
@@ -168,7 +146,6 @@ struct PostView: View {
                     Button {
                         
                         let randomId = randomString(length: 10)
-                        /*let newData = ImageListing(id: randomId,title: itemName,description: description,price: price)*/
                         newListing.id = randomId
                         newListing.title = itemName
                         newListing.description = description
@@ -180,13 +157,6 @@ struct PostView: View {
                             "description": newListing.description,
                             "price": newListing.price])
                         
-                        /*
-                         listings.insert(ImageListing(
-                         id: newListing.id,
-                         title: newListing.title,
-                         description: newListing.description,
-                         price: newListing.price), at: 0)*/
-                        //ItemsView(listModel: listModel)
                         
                     } label: {
                         Text("Submit")
@@ -201,14 +171,8 @@ struct PostView: View {
                         //                    LinearGradient(colors: [.red,.blue],startPoint: .topLeading,endPoint: .bottomTrailing)
                         //                )
                     .cornerRadius(9)
-                    .shadow(radius: 4 , x: 2, y: 3)/*
-                    .onChange(of: selectedItem, perform: {newValue in
-                        if let newValue {
-                            viewModel.savePostImage(item: newValue)
-                            
-                        }
-                    })*/
-                    .onChange(of: selectedItems, perform: {newValues in
+                    .shadow(radius: 4 , x: 2, y: 3)
+                    .onChange(of: photoViewModel.imageSelections, perform: {newValues in
                             viewModel.savePostImages(items: newValues)
                             
                     })
