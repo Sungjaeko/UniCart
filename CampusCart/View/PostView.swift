@@ -74,7 +74,7 @@ import Firebase
 struct PostView: View {
     //@Binding var listings: [ImageListing]
     let db = Firestore.firestore()
-    @EnvironmentObject var photoViewModel: PhotoPickerViewModel
+    @StateObject var photoViewModel = PhotoPickerViewModel()
     @StateObject private var viewModel = PostViewModel()
     @State private var condition: DropdownMenuOption? = nil
     @State var itemName: String = ""
@@ -88,6 +88,7 @@ struct PostView: View {
         
     var body: some View {
         NavigationView {
+            
             ScrollView {
                 VStack (alignment: .center) {
                     
@@ -103,6 +104,9 @@ struct PostView: View {
                                 }
                             }
                         }
+                    }
+                    else{
+                        Text("No Images to show")
                     }
                     
                     PhotosPicker(selection: $photoViewModel.imageSelections, matching: .images, photoLibrary: .shared()){

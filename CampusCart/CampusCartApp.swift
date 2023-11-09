@@ -13,7 +13,7 @@ struct CampusCartApp: App {
         @StateObject var viewModel = AuthViewModel()
         
         var body: some Scene {
-            WindowGroup {
+            WindowGroup {'
                 NavigationView {
                     ContentView()
                         .environmentObject(viewModel)

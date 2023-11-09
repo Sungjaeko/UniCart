@@ -20,11 +20,6 @@ struct MainView: View {
                     Label("Home",systemImage: "house.fill")
                     Image(systemName: "house")
                 }
-            //let listModel = ListViewModel()
-            /*PostView()
-                .tabItem{
-                    Label("Post", systemImage: "square.and.pencil")
-                }*/
             DMView()
                 .tabItem{
                     Label("Message",systemImage:"message")
