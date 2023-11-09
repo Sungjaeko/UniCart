@@ -18,14 +18,16 @@ class PostViewModel: ObservableObject{
         }
     }
     
-    func savePostImage(item: PhotosPickerItem){
+    func savePostImages(items: [PhotosPickerItem]){
         
         Task{
-            guard let data = try await item.loadTransferable(type:Data.self) else {return}
-            let (path, name) = try await StorageManager.shared.saveImage(data: data)
-            print("Success!!")
-            print(path)
-            print(name)
+            for item in items{
+                guard let data = try await item.loadTransferable(type:Data.self) else {return}
+                let (path, name) = try await StorageManager.shared.saveImage(data: data)
+                print("Success!!")
+                print(path)
+                print(name)}
+            
         }
     }
     func setImages(from selections: [PhotosPickerItem]) {

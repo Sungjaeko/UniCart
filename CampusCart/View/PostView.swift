@@ -83,6 +83,7 @@ struct PostView: View {
     //@State var condition = ["New", "Used - Like New", "Used - Good", "Used - Fair"]
     //@State var imageUploaded: Bool = true
     @State private var selectedItem: PhotosPickerItem? = nil
+    @State private var selectedItems: [PhotosPickerItem] = []
     @StateObject private var newListing = ImgListing()
     
     //@StateObject private var viewModel = PhotoPickerViewModel()
@@ -125,20 +126,17 @@ struct PostView: View {
                     //
                     //                    }
                     //                })
-                    PhotosPicker(selection: $selectedItem,matching: .images, photoLibrary: .shared()){
-                        Text("Select a photo")
+                    
+                    PhotosPicker(selection: $selectedItems, matching: .images, photoLibrary: .shared()){
+                        Text("Select photos")
                     }
-                    .onChange(of: selectedItem, perform: {newValue in
-                        if let newValue {
-                            viewModel.savePostImage(item: newValue)
-                            
-                        }
-                    })
+                    
                     
                     Text("Required")
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .font(.system(size:30, weight: .bold, design: .rounded))
                         .padding()
+                    
                     TextField("Title",text:$itemName)
                         .frame(width: .infinity)
                         .padding(14)
@@ -189,6 +187,7 @@ struct PostView: View {
                          description: newListing.description,
                          price: newListing.price), at: 0)*/
                         //ItemsView(listModel: listModel)
+                        
                     } label: {
                         Text("Submit")
                             .font(.title2)
@@ -202,7 +201,17 @@ struct PostView: View {
                         //                    LinearGradient(colors: [.red,.blue],startPoint: .topLeading,endPoint: .bottomTrailing)
                         //                )
                     .cornerRadius(9)
-                    .shadow(radius: 4 , x: 2, y: 3)
+                    .shadow(radius: 4 , x: 2, y: 3)/*
+                    .onChange(of: selectedItem, perform: {newValue in
+                        if let newValue {
+                            viewModel.savePostImage(item: newValue)
+                            
+                        }
+                    })*/
+                    .onChange(of: selectedItems, perform: {newValues in
+                            viewModel.savePostImages(items: newValues)
+                            
+                    })
                     .padding()
                     
                 }
