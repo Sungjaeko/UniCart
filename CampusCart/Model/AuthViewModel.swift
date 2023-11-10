@@ -19,6 +19,7 @@ protocol AuthenticationFormProtocol {
 class AuthViewModel: ObservableObject {
     @Published var userSession: FirebaseAuth.User?
     @Published var currentUser: User?
+    let mockUser = User.MOCK_USER
     @State private var alertMessage = ""
     @State private var showAlert = false
     init() {
@@ -28,6 +29,7 @@ class AuthViewModel: ObservableObject {
             await fetchUser()
         }
     }
+    
     
     
     func login(withEmail email: String, password: String) async throws {

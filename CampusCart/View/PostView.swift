@@ -76,6 +76,7 @@ struct PostView: View {
     let db = Firestore.firestore()
     @StateObject var photoViewModel = PhotoPickerViewModel()
     @StateObject private var viewModel = PostViewModel()
+    @StateObject private var authViewModel = AuthViewModel()
     @State private var condition: DropdownMenuOption? = nil
     @State var itemName: String = ""
     @State var description: String = ""
@@ -113,7 +114,10 @@ struct PostView: View {
                     PhotosPicker(selection: $photoViewModel.imageSelections, matching: .images, photoLibrary: .shared()){
                         Text("Select photos")
                     }
-                    
+                    .onChange(of: photoViewModel.imageSelections, perform: {newValues in
+                        viewModel.savePostImages(items: newValues, user: authViewModel.mockUser)
+                            
+                    })
                     
                     Text("Required")
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -179,10 +183,7 @@ struct PostView: View {
                         //                )
                     .cornerRadius(9)
                     .shadow(radius: 4 , x: 2, y: 3)
-                    .onChange(of: photoViewModel.imageSelections, perform: {newValues in
-                            viewModel.savePostImages(items: newValues)
-                            
-                    })
+                    
                     .padding()
                     
                 }

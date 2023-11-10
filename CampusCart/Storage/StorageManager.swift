@@ -14,6 +14,46 @@ final class StorageManager{
     
     private let storage = Storage.storage().reference()
     
+    private var imagesReference: StorageReference {
+        storage.child("images")
+    }
+    
+    private func userReference(userId: String) -> StorageReference {
+        storage.child("users").child(userId)
+    }
+    
+    // Saves images in a folder according to user
+    func userSaveImages(data: Data, userId: String) async throws -> (path:String,name:String){
+        print(userId)
+        let meta = StorageMetadata()
+        meta.contentType = "image/jpeg"
+        let path = "\(UUID().uuidString).jpeg"
+        
+        let returnedMetaData = try await userReference(userId: userId).child(path).putDataAsync(data, metadata: meta)
+        
+        
+        guard let returnedPath = returnedMetaData.path, let returnedName = returnedMetaData.name else{
+            throw URLError(.badServerResponse)
+        }
+                
+        return (returnedPath,returnedName)
+    }
+    
+    func userSaveImage(data: Data) async throws -> (path:String,name:String){
+        let meta = StorageMetadata()
+        meta.contentType = "image/jpeg"
+        let path = "\(UUID().uuidString).jpeg"
+        
+        let returnedMetaData = try await imagesReference.child(path).putDataAsync(data, metadata: meta)
+        
+        
+        guard let returnedPath = returnedMetaData.path, let returnedName = returnedMetaData.name else{
+            throw URLError(.badServerResponse)
+        }
+                
+        return (returnedPath,returnedName)
+    }
+    
     func saveImage(data: Data) async throws -> (path:String,name:String){
         let meta = StorageMetadata()
         meta.contentType = "image/jpeg"

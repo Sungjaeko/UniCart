@@ -10,6 +10,7 @@ import Foundation
 import Firebase
 import PhotosUI
 
+
 class PostViewModel: ObservableObject{
     @Published private(set) var selectedImages: [UIImage] = []
     @Published var imageSelections: [PhotosPickerItem] = [] {
@@ -18,12 +19,28 @@ class PostViewModel: ObservableObject{
         }
     }
     
-    func savePostImages(items: [PhotosPickerItem]){
+    func savePostImages(items: [PhotosPickerItem], user: User?){
+        guard let user else { print("sorry no user")
+            return
+        }
+        Task{
+            for item in items{
+                guard let data = try await item.loadTransferable(type:Data.self) else {return}
+                let (path, name) = try await StorageManager.shared.userSaveImages(data: data, userId: user.id)
+                print("Success!!")
+                print(path)
+                print(name)}
+                print(user)
+            
+        }
+    }
+    
+    func savePostImage(items: [PhotosPickerItem]){
         
         Task{
             for item in items{
                 guard let data = try await item.loadTransferable(type:Data.self) else {return}
-                let (path, name) = try await StorageManager.shared.saveImage(data: data)
+                let (path, name) = try await StorageManager.shared.userSaveImage(data: data)
                 print("Success!!")
                 print(path)
                 print(name)}

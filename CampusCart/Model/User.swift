@@ -14,6 +14,14 @@ struct User: Identifiable, Codable, Hashable {
     var email: String
     var profileImageUrl: String?
     
+    init(id: String, firstName: String, lastName: String, email: String, profileImageUrl: String? = nil) {
+        self.id = "A USER ID"
+        self.firstName = firstName
+        self.lastName = lastName
+        self.email = email
+        self.profileImageUrl = profileImageUrl
+    }
+    
     func initials() -> String{
         let firstInitial = firstName.first!
         let secondInitial = lastName.first!
@@ -32,5 +40,5 @@ struct User: Identifiable, Codable, Hashable {
 }
 
 extension User {
-    static var MOCK_USER = User(id: NSUUID().uuidString, firstName: "Bat", lastName: "Man", email: "test@gmail.com", profileImageUrl: "batman-1")
+     static var MOCK_USER = User(id: NSUUID().uuidString, firstName: "Bat", lastName: "Man", email: "test@gmail.com", profileImageUrl: "batman-1")
 }
