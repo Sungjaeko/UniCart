@@ -7,6 +7,7 @@
 
 import Foundation
 import FirebaseStorage
+import FirebaseFirestore
 
 final class StorageManager{
     static let shared = StorageManager()
@@ -27,7 +28,7 @@ final class StorageManager{
         print(userId)
         let meta = StorageMetadata()
         meta.contentType = "image/jpeg"
-        let path = "\(UUID().uuidString).jpeg"
+        let path = "users/\(userId)/\(UUID().uuidString).jpeg"
         
         let returnedMetaData = try await userReference(userId: userId).child(path).putDataAsync(data, metadata: meta)
         
@@ -35,7 +36,9 @@ final class StorageManager{
         guard let returnedPath = returnedMetaData.path, let returnedName = returnedMetaData.name else{
             throw URLError(.badServerResponse)
         }
-                
+        
+        let db = Firestore.firestore()
+        try await db.collection("images").document().setData(["url":path])
         return (returnedPath,returnedName)
     }
     
