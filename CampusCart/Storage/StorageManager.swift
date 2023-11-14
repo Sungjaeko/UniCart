@@ -39,6 +39,8 @@ final class StorageManager{
         
         let db = Firestore.firestore()
         try await db.collection("images").document().setData(["url":path])
+            
+            
         return (returnedPath,returnedName)
     }
     

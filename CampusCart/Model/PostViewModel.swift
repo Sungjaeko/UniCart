@@ -9,6 +9,7 @@ import SwiftUI
 import Foundation
 import Firebase
 import PhotosUI
+import FirebaseStorage
 
 
 class PostViewModel: ObservableObject{
@@ -30,7 +31,7 @@ class PostViewModel: ObservableObject{
                 print("Success!!")
                 print(path)
                 print(name)}
-                print(user)
+            print(user)
             
         }
     }
@@ -60,6 +61,45 @@ class PostViewModel: ObservableObject{
             }
             selectedImages = images
         }
-        
     }
+//    func retrievePhotos(retrievedImages: [UIImage]) {
+//        // Get the data from the database
+//        let db = Firestore.firestore()
+//
+//        db.collection("images").getDocuments { snapshot, error in
+//            if error == nil && snapshot != nil {
+//                var paths = [String]()
+//                // Loop through all the returned docs
+//                for doc in snapshot!.documents {
+//                    // extract the file path and add to array
+//                    paths.append(doc["url"] as! String)
+//                }
+//                // Loop through each file path and fetch the data from the storage
+//                for path in paths {
+//                    // Get a reference to storage
+//                    let storageRef = Storage.storage().reference()
+//                    
+//                    // Specify the path
+//                    let fileRef = storageRef.child(path)
+//                    
+//                    // Retrieve the data
+//                    fileRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
+//                        // Check for errors
+//                        if error == nil && data != nil{
+//                            
+//                            // Create a UIImage and put it into our array for display
+//                            if let image = UIImage(data: data!) {
+//                                
+//                                DispatchQueue.main.async {
+//                                    retrievedImages.append(image)
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        }
+        // Get the image data in storage for each image reference
+        
+        // Display the images
 }

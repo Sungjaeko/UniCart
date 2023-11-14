@@ -8,7 +8,7 @@
 import SwiftUI
 import PhotosUI
 import Firebase
-
+import FirebaseStorage
 //@MainActor
 //final class PhotoPickerViewModel: ObservableObject{
 //
@@ -81,13 +81,12 @@ struct PostView: View {
     @State var itemName: String = ""
     @State var description: String = ""
     @State var price: Int = 0
-    //@State var condition = ["New", "Used - Like New", "Used - Good", "Used - Fair"]
-    //@State var imageUploaded: Bool = true
+    @State var retrievedImages = [UIImage]()
     @State private var selectedItem: PhotosPickerItem? = nil
     @State private var selectedItems: [PhotosPickerItem] = []
     @StateObject private var newListing = ImgListing()
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-        
+    
     var body: some View {
         NavigationView {
             
@@ -104,6 +103,7 @@ struct PostView: View {
                                         .frame(width:200,height:200)
                                         .cornerRadius(10)
                                 }
+                                
                             }
                         }
                     }
@@ -116,7 +116,7 @@ struct PostView: View {
                     }
                     .onChange(of: photoViewModel.imageSelections, perform: {newValues in
                         viewModel.savePostImages(items: newValues, user: authViewModel.mockUser)
-                            
+                        
                     })
                     
                     Text("Required")
@@ -178,14 +178,24 @@ struct PostView: View {
                     .frame(height:50)
                     .frame(maxWidth: 300)
                     .background(Color.blue)
-                        //                .background(
-                        //                    LinearGradient(colors: [.red,.blue],startPoint: .topLeading,endPoint: .bottomTrailing)
-                        //                )
+                    //                .background(
+                    //                    LinearGradient(colors: [.red,.blue],startPoint: .topLeading,endPoint: .bottomTrailing)
+                    //                )
                     .cornerRadius(9)
                     .shadow(radius: 4 , x: 2, y: 3)
                     
                     .padding()
                     
+                    Divider()
+                    
+                    HStack {
+                        // Loop through the images and display them
+                        ForEach(retrievedImages, id: \.self) { image in
+                            Image(uiImage: image)
+                                .resizable()
+                                .frame(width: 200, height: 200)
+                        }
+                    }
                 }
             }
             .navigationTitle("New Listing")
@@ -204,13 +214,52 @@ struct PostView: View {
         
         return randomString
     }
-}
-
-struct PostView_Previews: PreviewProvider {
-    @State static var listings: [ImageListing] = []
-    static var previews: some View {
-        PostView()
-            .environmentObject(PhotoPickerViewModel())
-            .environmentObject(ImgListing())
+    
+    func retrievePhotos() {
+        // Get the data from the database
+        let db = Firestore.firestore()
+        
+        db.collection("images").getDocuments { snapshot, error in
+            if error == nil && snapshot != nil {
+                var paths = [String]()
+                // Loop through all the returned docs
+                for doc in snapshot!.documents {
+                    // extract the file path and add to array
+                    paths.append(doc["url"] as! String)
+                }
+                // Loop through each file path and fetch the data from the storage
+                for path in paths {
+                    // Get a reference to storage
+                    let storageRef = Storage.storage().reference()
+                    
+                    // Specify the path
+                    let fileRef = storageRef.child(path)
+                    
+                    // Retrieve the data
+                    fileRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
+                        // Check for errors
+                        if error == nil && data != nil{
+                            
+                            // Create a UIImage and put it into our array for display
+                            if let image = UIImage(data: data!) {
+                                
+                                DispatchQueue.main.async {
+                                    retrievedImages.append(image)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
+    
 }
+    struct PostView_Previews: PreviewProvider {
+        @State static var listings: [ImageListing] = []
+        static var previews: some View {
+            PostView()
+                .environmentObject(PhotoPickerViewModel())
+                .environmentObject(ImgListing())
+        }
+    }
