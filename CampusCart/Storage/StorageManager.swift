@@ -28,9 +28,11 @@ final class StorageManager{
         print(userId)
         let meta = StorageMetadata()
         meta.contentType = "image/jpeg"
-        let path = "users/\(userId)/\(UUID().uuidString).jpeg"
+        let imgID = "\(UUID().uuidString).jpeg"
+        let path = "users/\(userId)/\(imgID)"
         
-        let returnedMetaData = try await userReference(userId: userId).child(path).putDataAsync(data, metadata: meta)
+        
+        let returnedMetaData = try await userReference(userId: userId).child(imgID).putDataAsync(data, metadata: meta)
         
         
         guard let returnedPath = returnedMetaData.path, let returnedName = returnedMetaData.name else{

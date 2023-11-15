@@ -21,8 +21,8 @@ class ListViewModel: ObservableObject{
 
 struct ItemsView: View {
     //@State var listings: [ImageListing]
-    @StateObject private var newListing = ImgListing()
-    
+    //@StateObject private var newListing = ImgListing()
+    //@Binding var retrievedImages: [UIImage]
     var body: some View {
         
         NavigationView{
@@ -32,8 +32,11 @@ struct ItemsView: View {
                 }
                 /*
                 List{
-                    ForEach(listings){
-                        listing in Text(listing.title)
+                    ForEach(retrievedImages, id: \.self) { image in
+                        
+                        Image(uiImage: image)
+                            .resizable()
+                            .frame(width: 100, height: 100)
                     }
                 }
                 .navigationBarTitle("Items")*/
@@ -48,7 +51,6 @@ func insertImage() async throws {
 }*/
 
 struct ItemsView_Previews: PreviewProvider {
-    
     static var previews: some View {
         ItemsView()
     }

@@ -167,7 +167,9 @@ struct PostView: View {
                             "description": newListing.description,
                             "price": newListing.price,
                             "condition": newListing.condition])
-                        self.presentationMode.wrappedValue.dismiss()
+                        //self.presentationMode.wrappedValue.dismiss()
+                        
+                        retrievePhotos()
                         
                     } label: {
                         Text("Submit")
@@ -186,21 +188,33 @@ struct PostView: View {
                     
                     .padding()
                     
-                    Divider()
+                        
                     
-                    HStack {
-                        // Loop through the images and display them
+                    
+                    Divider()
+                    // Loop through the images and display them
+                    VStack{
+                        
+                        Text("Displayed Images")
+                        Text("----------")
+                        
                         ForEach(retrievedImages, id: \.self) { image in
+                            
                             Image(uiImage: image)
                                 .resizable()
-                                .frame(width: 200, height: 200)
+                                .frame(width: 100, height: 100)
                         }
                     }
+                    
+                    }
                 }
+            
+                
             }
             .navigationTitle("New Listing")
             .navigationBarTitleDisplayMode(.large)
-        }
+        
+    
     }
     func randomString(length: Int) -> String {
         let characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
@@ -230,6 +244,8 @@ struct PostView: View {
                 // Loop through each file path and fetch the data from the storage
                 for path in paths {
                     // Get a reference to storage
+                    print(path)
+                    print("-----------------------------")
                     let storageRef = Storage.storage().reference()
                     
                     // Specify the path
