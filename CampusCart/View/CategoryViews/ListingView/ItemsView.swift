@@ -23,6 +23,8 @@ struct ItemsView: View {
     //@State var listings: [ImageListing]
     //@StateObject private var newListing = ImgListing()
     //@Binding var retrievedImages: [UIImage]
+    @StateObject var sharedData = ImagesList.shared
+    @StateObject var itemListings = ImgListing.sharedListings
     var body: some View {
         
         NavigationView{
@@ -30,25 +32,27 @@ struct ItemsView: View {
                 NavigationLink(destination: PostView()){
                     Text("New Post")
                 }
-                /*
+                
                 List{
-                    ForEach(retrievedImages, id: \.self) { image in
-                        
-                        Image(uiImage: image)
-                            .resizable()
-                            .frame(width: 100, height: 100)
+                    ForEach(itemListings.listings, id: \.self) { listing in
+                        HStack{
+                            ForEach(listing.img, id: \.self){image in
+                                Image(uiImage: image)
+                                    .resizable()
+                                    .frame(width: 100, height: 100)
+                            }
+                            Text(listing.title)
+                            Text("Condition: \(listing.condition)")
+                        }
                     }
                 }
-                .navigationBarTitle("Items")*/
+                .navigationBarTitle("Items")
                 
             }
         }
     }
 }
-/*
-func insertImage() async throws {
-  
-}*/
+
 
 struct ItemsView_Previews: PreviewProvider {
     static var previews: some View {

@@ -32,6 +32,7 @@ final class StorageManager{
         let path = "users/\(userId)/\(imgID)"
         
         
+        
         let returnedMetaData = try await userReference(userId: userId).child(imgID).putDataAsync(data, metadata: meta)
         
         
@@ -41,8 +42,7 @@ final class StorageManager{
         
         let db = Firestore.firestore()
         try await db.collection("images").document().setData(["url":path])
-            
-            
+     
         return (returnedPath,returnedName)
     }
     

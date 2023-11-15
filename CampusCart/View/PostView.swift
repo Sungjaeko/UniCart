@@ -9,65 +9,12 @@ import SwiftUI
 import PhotosUI
 import Firebase
 import FirebaseStorage
-//@MainActor
-//final class PhotoPickerViewModel: ObservableObject{
-//
-//    @Published private(set) var selectedImage: UIImage? = nil
-//    @Published var imageSelection: PhotosPickerItem? = nil{
-//        didSet{
-//            setImage(from: imageSelection)
-//        }
-//    }
-//
-//    @Published private(set) var selectedImages: [UIImage] = []
-//    @Published var imageSelections: [PhotosPickerItem] = [] {
-//        didSet{
-//            setImages(from: imageSelections)
-//        }
-//    }
-//
-//    private func setImage(from selection: PhotosPickerItem?){
-//        guard let selection else {return}
-//
-//        Task{
-//            //            if let data = try? await selection.loadTransferable(type: Data.self){
-//            //                if let uiImage = UIImage(data: data){
-//            //                    selectedImage = uiImage
-//            //                    return
-//            //                }
-//            //            }
-//            do {
-//                let data = try? await selection.loadTransferable(type: Data.self)
-//
-//                guard let data, let uiImage = UIImage(data: data) else {
-//                    throw URLError(.badServerResponse)
-//                }
-//
-//                selectedImage = uiImage
-//            } catch {
-//                print(error)
-//            }
-//        }
-//
-//    }
-//
-//    private func setImages(from selections: [PhotosPickerItem]) {
-//        Task {
-//            var images: [UIImage] = []
-//            for selection in selections {
-//                if let data = try? await selection.loadTransferable(type: Data.self){
-//                    if let uiImage = UIImage(data: data){
-//                        images.append(uiImage)
-//
-//                    }
-//                }
-//            }
-//            selectedImages = images
-//        }
-//
-//    }
-//
-//}
+
+class ImagesList: ObservableObject{
+    static let shared = ImagesList()
+    
+    @Published var retrievedImages = [UIImage]()
+}
 
 
 
@@ -81,10 +28,11 @@ struct PostView: View {
     @State var itemName: String = ""
     @State var description: String = ""
     @State var price: Int = 0
-    @State var retrievedImages = [UIImage]()
+    @StateObject var sharedData = ImagesList.shared
+    @StateObject var itemListings = ImgListing.sharedListings
     @State private var selectedItem: PhotosPickerItem? = nil
     @State private var selectedItems: [PhotosPickerItem] = []
-    @StateObject private var newListing = ImgListing()
+    @StateObject var newListing = ImgListing()
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     var body: some View {
@@ -114,10 +62,6 @@ struct PostView: View {
                     PhotosPicker(selection: $photoViewModel.imageSelections, matching: .images, photoLibrary: .shared()){
                         Text("Select photos")
                     }
-                    .onChange(of: photoViewModel.imageSelections, perform: {newValues in
-                        viewModel.savePostImages(items: newValues, user: authViewModel.mockUser)
-                        
-                    })
                     
                     Text("Required")
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -160,16 +104,24 @@ struct PostView: View {
                         newListing.description = description
                         newListing.price = price
                         newListing.condition = condition?.option ?? "No Condition"
+                        
+                        retrievePhotos()
+                        viewModel.savePostImages(items: photoViewModel.imageSelections, user: authViewModel.mockUser,listing: newListing)
+                        
                         let collectionReference = db.collection("listings")
                         collectionReference.addDocument(data:[
                             "id": newListing.id,
                             "title": newListing.title,
                             "description": newListing.description,
                             "price": newListing.price,
-                            "condition": newListing.condition])
-                        //self.presentationMode.wrappedValue.dismiss()
+                            "condition": newListing.condition,
+                            "url": newListing.imgURL])
                         
-                        retrievePhotos()
+                        itemListings.listings.append(newListing)
+                        
+                        
+                        
+                        self.presentationMode.wrappedValue.dismiss()
                         
                     } label: {
                         Text("Submit")
@@ -187,25 +139,9 @@ struct PostView: View {
                     .shadow(radius: 4 , x: 2, y: 3)
                     
                     .padding()
-                    
-                        
-                    
-                    
+                  
                     Divider()
-                    // Loop through the images and display them
-                    VStack{
-                        
-                        Text("Displayed Images")
-                        Text("----------")
-                        
-                        ForEach(retrievedImages, id: \.self) { image in
-                            
-                            Image(uiImage: image)
-                                .resizable()
-                                .frame(width: 100, height: 100)
-                        }
-                    }
-                    
+          
                     }
                 }
             
@@ -258,9 +194,9 @@ struct PostView: View {
                             
                             // Create a UIImage and put it into our array for display
                             if let image = UIImage(data: data!) {
-                                
+                                //newListing.img = image
                                 DispatchQueue.main.async {
-                                    retrievedImages.append(image)
+                                    sharedData.retrievedImages.append(image)
                                 }
                             }
                         }
