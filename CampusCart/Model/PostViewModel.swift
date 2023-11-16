@@ -27,14 +27,16 @@ class PostViewModel: ObservableObject{
         Task{
             for item in items{
                 guard let data = try await item.loadTransferable(type:Data.self) else {return}
-                let (path, name) = try await StorageManager.shared.userSaveImages(data: data, userId: user.id)
-                let image = UIImage(data: data)
-                listing.img.append(image!)
+                let (path, name) = try await StorageManager.shared.userSaveImages(data: data, userId: user.id,listing: listing)
+                //let image = UIImage(data: data)
+                //listing.img.append(image!)
+                print(path)
                 
                 print("Success!!")
-                print(path)
-                print(name)}
-            print(user)
+                //listing.imgURL = path
+                
+           }
+            
             
         }
     }

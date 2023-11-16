@@ -7,6 +7,8 @@
 
 import SwiftUI
 import Combine
+import Firebase
+import FirebaseStorage
 
 /*
 class ListViewModel: ObservableObject{
@@ -17,7 +19,11 @@ class ListViewModel: ObservableObject{
         items.append(newItem)
     }
 }*/
-
+//class ImagesList: ObservableObject{
+//    static let shared = ImagesList()
+//
+//    @Published var retrievedImages = [UIImage]()
+//}
 
 struct ItemsView: View {
     //@State var listings: [ImageListing]
@@ -36,10 +42,12 @@ struct ItemsView: View {
                 List{
                     ForEach(itemListings.listings, id: \.self) { listing in
                         HStack{
-                            ForEach(listing.img, id: \.self){image in
+                            ForEach(sharedData.retrievedImages, id: \.self) {image in
                                 Image(uiImage: image)
                                     .resizable()
-                                    .frame(width: 100, height: 100)
+                                    .scaledToFill()
+                                    .frame(width:200,height:200)
+                                    .cornerRadius(10)
                             }
                             Text(listing.title)
                             Text("Condition: \(listing.condition)")
@@ -51,7 +59,50 @@ struct ItemsView: View {
             }
         }
     }
+    
+    
+    
+//    func retrievePhotos() {
+//        // Get the data from the database
+//        let db = Firestore.firestore()
+//
+//        db.collection("listings").getDocuments { snapshot, error in
+//            if error == nil && snapshot != nil {
+//                var paths = [String]()
+//                // Loop through all the returned docs
+//                for doc in snapshot!.documents {
+//                    // extract the file path and add to array
+//                    paths.append(doc["url"] as! String)
+//                }
+//                // Loop through each file path and fetch the data from the storage
+//                for path in paths {
+//                    // Get a reference to storage
+//                    let storageRef = Storage.storage().reference()
+//
+//                    // Specify the path
+//                    let fileRef = storageRef.child(path)
+//
+//                    // Retrieve the data
+//                    fileRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
+//                        // Check for errors
+//                        if error == nil && data != nil{
+//
+//                            // Create a UIImage and put it into our array for display
+//                            if let image = UIImage(data: data!) {
+//                                //newListing.img = image
+//                                DispatchQueue.main.async {
+//                                    sharedData.retrievedImages.append(image)
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//    }
+
 }
+
 
 
 struct ItemsView_Previews: PreviewProvider {

@@ -28,4 +28,8 @@ class ImgListing: ObservableObject, Identifiable, Hashable {
         func hash(into hasher: inout Hasher) {
             hasher.combine(id)
         }
+    
+    func upImgUrl(path: String){
+        imgURL = path
+    }
 }
