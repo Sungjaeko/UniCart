@@ -42,12 +42,14 @@ struct ItemsView: View {
                 List{
                     ForEach(itemListings.listings, id: \.self) { listing in
                         HStack{
-                            ForEach(sharedData.retrievedImages, id: \.self) {image in
+                            ForEach(listing.img, id: \.self) {image in
+                                
                                 Image(uiImage: image)
-                                    .resizable()
-                                    .scaledToFill()
-                                    .frame(width:200,height:200)
-                                    .cornerRadius(10)
+                                        .resizable()
+                                        .scaledToFill()
+                                        .frame(width:75,height:75)
+                                        .cornerRadius(10)
+                                
                             }
                             Text(listing.title)
                             Text("Condition: \(listing.condition)")
@@ -55,7 +57,6 @@ struct ItemsView: View {
                     }
                 }
                 .navigationBarTitle("Items")
-                
             }
         }
     }

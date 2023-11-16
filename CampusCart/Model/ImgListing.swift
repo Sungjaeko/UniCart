@@ -29,7 +29,10 @@ class ImgListing: ObservableObject, Identifiable, Hashable {
             hasher.combine(id)
         }
     
-    func upImgUrl(path: String){
+    func addImages(image: UIImage){
+        img.append(image)
+    }
+    func upUrl(path:String){
         imgURL = path
     }
 }

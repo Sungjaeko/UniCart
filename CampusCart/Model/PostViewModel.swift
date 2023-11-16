@@ -30,9 +30,9 @@ class PostViewModel: ObservableObject{
                 let (path, name) = try await StorageManager.shared.userSaveImages(data: data, userId: user.id,listing: listing)
                 //let image = UIImage(data: data)
                 //listing.img.append(image!)
-                print(path)
+                print("Path from savePostImages:\(path)")
                 
-                print("Success!!")
+                //print("Success!!")
                 //listing.imgURL = path
                 
            }

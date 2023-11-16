@@ -29,11 +29,8 @@ final class StorageManager{
         meta.contentType = "image/jpeg"
         let imgID = "\(UUID().uuidString).jpeg"
         let path = "users/\(userId)/\(imgID)"
-        listing.upImgUrl(path: path)
-        //listing.imgURL = path
         
-        
-        
+ 
         let returnedMetaData = try await userReference(userId: userId).child(imgID).putDataAsync(data, metadata: meta)
         
         
@@ -42,8 +39,14 @@ final class StorageManager{
         }
         
         let db = Firestore.firestore()
-        try await db.collection("images").document().setData(["url":path])
-     
+        try await db.collection("listings").document().setData(["url":path,
+                                                                "title":listing.title,
+                                                                "price":listing.price,
+                                                                "description":listing.description,
+                                                                "id":listing.id,
+                                                                "condition":listing.condition])
+        listing.upUrl(path: path)
+        print("Path from userSaveImages:\(path)")
         return (returnedPath,returnedName)
     }
     

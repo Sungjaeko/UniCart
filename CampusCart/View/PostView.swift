@@ -124,19 +124,22 @@ struct PostView: View {
                         
                         
                     Button {
+                        /*
                         let collectionReference = db.collection("listings")
                         collectionReference.addDocument(data:[
                             "id": newListing.id,
                             "title": newListing.title,
                             "description": newListing.description,
                             "price": newListing.price,
-                            "condition": newListing.condition,
-                            "url": newListing.imgURL])
-                        
-                        itemListings.listings.append(newListing)
-                        
+                            "condition": newListing.condition/*,
+                            "url": newListing.imgURL*/])*/
+                        print("Current Image Path: \(newListing.imgURL)")
                         retrievePhotos(listing: newListing)
-                        self.presentationMode.wrappedValue.dismiss()
+                        
+                        //itemListings.listings.append(newListing)
+                        
+                        
+                        //self.presentationMode.wrappedValue.dismiss()
                         
                     } label: {
                         Text("Submit to Db")
@@ -154,8 +157,29 @@ struct PostView: View {
                     .shadow(radius: 4 , x: 2, y: 3)
                     
                     .padding()
-                  
-                    Divider()
+                    Button {
+                        
+                        itemListings.listings.append(newListing)
+                        
+                        
+                        self.presentationMode.wrappedValue.dismiss()
+                        
+                    } label: {
+                        Text("add images")
+                            .font(.title2)
+                            .bold()
+                            .foregroundColor(.white)
+                    }
+                    .frame(height:50)
+                    .frame(maxWidth: 300)
+                    .background(Color.blue)
+                    //                .background(
+                    //                    LinearGradient(colors: [.red,.blue],startPoint: .topLeading,endPoint: .bottomTrailing)
+                    //                )
+                    .cornerRadius(9)
+                    .shadow(radius: 4 , x: 2, y: 3)
+                                      
+                    //Divider()
                     
                     }
                 }
@@ -184,7 +208,7 @@ struct PostView: View {
         // Get the data from the database
         let db = Firestore.firestore()
         
-        db.collection("images").getDocuments { snapshot, error in
+        db.collection("listings").getDocuments { snapshot, error in
             if error == nil && snapshot != nil {
                 var paths = [String]()
                 // Loop through all the returned docs
@@ -193,9 +217,13 @@ struct PostView: View {
                     paths.append(doc["url"] as! String)
                 }
                 // Loop through each file path and fetch the data from the storage
+                
                 for path in paths {
                     // Get a reference to storage
+                    print("Current path in db:\(path)")
+                    print("Listing Path:\(listing.imgURL)")
                     if (path == listing.imgURL){
+                        print("MATCH")
                         let storageRef = Storage.storage().reference()
                         
                         // Specify the path
@@ -203,19 +231,21 @@ struct PostView: View {
                         
                         // Retrieve the data
                         fileRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
-                            // Check for errors
-                            if error == nil && data != nil{
-                                
-                                // Create a UIImage and put it into our array for display
-                                if let image = UIImage(data: data!) {
-                                    //newListing.img = image
-                                    DispatchQueue.main.async {
-                                        sharedData.retrievedImages.append(image)
-                                    }
+                        // Check for errors
+                        if error == nil && data != nil{
+                            
+                            // Create a UIImage and put it into our array for display
+                            if let image = UIImage(data: data!) {
+                                //newListing.img = image
+                                DispatchQueue.main.async {
+                                    listing.addImages(image: image)
                                 }
                             }
                         }
                     }
+                        break
+                }
+                    
                 }
             }
         }
