@@ -23,7 +23,6 @@
 		2BFA4A862ACD4219006E4D9F /* DMView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BFA4A852ACD4219006E4D9F /* DMView.swift */; };
 		2BFA4A882ACD429C006E4D9F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BFA4A872ACD429C006E4D9F /* HomeView.swift */; };
 		68214C982AEC3854007BE07B /* NoImageListing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68214C972AEC3854007BE07B /* NoImageListing.swift */; };
-		68214C9A2AEC3B6E007BE07B /* ImageUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68214C992AEC3B6E007BE07B /* ImageUploader.swift */; };
 		68214C9C2AEEEEEC007BE07B /* CircularProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68214C9B2AEEEEEC007BE07B /* CircularProfileImageView.swift */; };
 		68214C9F2AEEF542007BE07B /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 68214C9E2AEEF542007BE07B /* Kingfisher */; };
 		68214CA22AEF9195007BE07B /* PhotoPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68214CA12AEF9195007BE07B /* PhotoPickerViewModel.swift */; };
@@ -42,6 +41,8 @@
 		68BBB4312AE2F5F000F19F21 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BBB4302AE2F5F000F19F21 /* Photo.swift */; };
 		68BD0C6C2AD3D39F00C90E6A /* SettingsRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BD0C6B2AD3D39F00C90E6A /* SettingsRowView.swift */; };
 		68D437DE2B14A3D70018E248 /* ListingRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D437DD2B14A3D70018E248 /* ListingRowView.swift */; };
+		68D437E02B158A320018E248 /* HousingPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D437DF2B158A320018E248 /* HousingPostView.swift */; };
+		68D437E22B158B580018E248 /* HousingListing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D437E12B158B580018E248 /* HousingListing.swift */; };
 		68DCED032AC4AF4D002322A4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 68DCED022AC4AF4D002322A4 /* GoogleService-Info.plist */; };
 		68DCED092AC4B596002322A4 /* CampusCartDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DCED082AC4B596002322A4 /* CampusCartDelegate.swift */; };
 		68E12B202AFB790000662DEC /* DropdownMenuOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E12B1F2AFB790000662DEC /* DropdownMenuOption.swift */; };
@@ -70,7 +71,6 @@
 		2BFA4A852ACD4219006E4D9F /* DMView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMView.swift; sourceTree = "<group>"; };
 		2BFA4A872ACD429C006E4D9F /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		68214C972AEC3854007BE07B /* NoImageListing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoImageListing.swift; sourceTree = "<group>"; };
-		68214C992AEC3B6E007BE07B /* ImageUploader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploader.swift; sourceTree = "<group>"; };
 		68214C9B2AEEEEEC007BE07B /* CircularProfileImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProfileImageView.swift; sourceTree = "<group>"; };
 		68214CA12AEF9195007BE07B /* PhotoPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerViewModel.swift; sourceTree = "<group>"; };
 		68352CFD2AD534F500BBA497 /* SettingsBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsBoxView.swift; sourceTree = "<group>"; };
@@ -84,6 +84,8 @@
 		68BBB4302AE2F5F000F19F21 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		68BD0C6B2AD3D39F00C90E6A /* SettingsRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRowView.swift; sourceTree = "<group>"; };
 		68D437DD2B14A3D70018E248 /* ListingRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingRowView.swift; sourceTree = "<group>"; };
+		68D437DF2B158A320018E248 /* HousingPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HousingPostView.swift; sourceTree = "<group>"; };
+		68D437E12B158B580018E248 /* HousingListing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HousingListing.swift; sourceTree = "<group>"; };
 		68DCED022AC4AF4D002322A4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		68DCED082AC4B596002322A4 /* CampusCartDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampusCartDelegate.swift; sourceTree = "<group>"; };
 		68E12B1F2AFB790000662DEC /* DropdownMenuOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownMenuOption.swift; sourceTree = "<group>"; };
@@ -163,6 +165,7 @@
 			children = (
 				2B3891222AE0626800E474F2 /* CategoryViews */,
 				2BD7C2AD2AC50B830042F09D /* LoginView.swift */,
+				68D437DF2B158A320018E248 /* HousingPostView.swift */,
 				687787112ACA3A4B00356E67 /* SignUpView.swift */,
 				687787162ACBA07E00356E67 /* MainView.swift */,
 				2BFA4A872ACD429C006E4D9F /* HomeView.swift */,
@@ -181,7 +184,6 @@
 				68352CFD2AD534F500BBA497 /* SettingsBoxView.swift */,
 				687787142ACB475900356E67 /* SignUpInputView.swift */,
 				68B3C7F22AD7B0C1005EAFA3 /* HomeViewButtonView.swift */,
-				68214C992AEC3B6E007BE07B /* ImageUploader.swift */,
 				68214C9B2AEEEEEC007BE07B /* CircularProfileImageView.swift */,
 				68E12B1F2AFB790000662DEC /* DropdownMenuOption.swift */,
 				68E12B212AFB7A2300662DEC /* DropdownMenu.swift */,
@@ -214,6 +216,7 @@
 				68214CA12AEF9195007BE07B /* PhotoPickerViewModel.swift */,
 				2B5C775F2AFAF9210046C1D3 /* ImgListing.swift */,
 				2B5C77622AFB0EA90046C1D3 /* PostViewModel.swift */,
+				68D437E12B158B580018E248 /* HousingListing.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -315,11 +318,12 @@
 				2BFA4A882ACD429C006E4D9F /* HomeView.swift in Sources */,
 				68214C9C2AEEEEEC007BE07B /* CircularProfileImageView.swift in Sources */,
 				68BD0C6C2AD3D39F00C90E6A /* SettingsRowView.swift in Sources */,
-				68214C9A2AEC3B6E007BE07B /* ImageUploader.swift in Sources */,
 				687787172ACBA07E00356E67 /* MainView.swift in Sources */,
 				687787262ACBDB6300356E67 /* ImageListing.swift in Sources */,
+				68D437E22B158B580018E248 /* HousingListing.swift in Sources */,
 				2BFA4A862ACD4219006E4D9F /* DMView.swift in Sources */,
 				2B3AEF232AB9A277006D928B /* ContentView.swift in Sources */,
+				68D437E02B158A320018E248 /* HousingPostView.swift in Sources */,
 				2B3AEF212AB9A277006D928B /* CampusCartApp.swift in Sources */,
 				2B3891282AE062E900E474F2 /* MiscView.swift in Sources */,
 				68214C982AEC3854007BE07B /* NoImageListing.swift in Sources */,

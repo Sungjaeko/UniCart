@@ -20,6 +20,28 @@ class PostViewModel: ObservableObject{
         }
     }
     
+    func saveHousingPostImages(items: [PhotosPickerItem], user: User?,listing: HousingListing){
+        guard let user else { print("sorry no user")
+            return
+        }
+        Task{
+            for item in items{
+                guard let data = try await item.loadTransferable(type:Data.self) else {return}
+                let (path) = try await StorageManager.shared.userSaveHousingImages(data: data, userId: user.id,listing: listing)
+                //let image = UIImage(data: data)
+                //listing.img.append(image!)
+                print("Path from savePostImages:\(path)")
+                
+                //print("Success!!")
+                //listing.imgURL = path
+                
+           }
+            
+            
+        }
+    }
+    
+    
     func savePostImages(items: [PhotosPickerItem], user: User?,listing: ImgListing){
         guard let user else { print("sorry no user")
             return
@@ -27,7 +49,8 @@ class PostViewModel: ObservableObject{
         Task{
             for item in items{
                 guard let data = try await item.loadTransferable(type:Data.self) else {return}
-                let (path, name) = try await StorageManager.shared.userSaveImages(data: data, userId: user.id,listing: listing)
+                // Removed "name" from the let statement that used to be included with path inside parentheses
+                let (path) = try await StorageManager.shared.userSaveImages(data: data, userId: user.id,listing: listing)
                 //let image = UIImage(data: data)
                 //listing.img.append(image!)
                 print("Path from savePostImages:\(path)")
