@@ -42,8 +42,6 @@ struct ItemsView: View {
     }
     
     var body: some View {
-        
-        
         NavigationView{
             ScrollView {
                 ZStack {
@@ -69,7 +67,7 @@ struct ItemsView: View {
                     .padding()
                     VStack (alignment: .leading){
                         ForEach(itemListings.listings, id: \.self) { listing in
-                            HStack{
+                            HStack(alignment: .top){
                                 ForEach(listing.img, id: \.self) {image in
                                     
                                     Image(uiImage: image)
@@ -77,7 +75,6 @@ struct ItemsView: View {
                                         .scaledToFill()
                                         .frame(width:130,height:130)
                                         .cornerRadius(13)
-                                    
                                 }
                                 
                                 VStack (alignment: .leading){
@@ -88,8 +85,9 @@ struct ItemsView: View {
                                     Text("$\(String(listing.price))")
                                         .font(.system(size:20, weight: .bold, design: .rounded))
                                 }
-                                .padding()
+                               
                             }
+                            .padding()
                             Divider()
                         }
                     }
