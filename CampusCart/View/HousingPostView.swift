@@ -22,9 +22,8 @@ struct HousingPostView: View {
     //@Binding var listings: [ImageListing]
     let db = Firestore.firestore()
     @StateObject var photoViewModel = PhotoPickerViewModel()
-    @StateObject private var viewModel = PostViewModel()
+    @StateObject private var viewModel = HousingViewModel()
     @StateObject private var authViewModel = AuthViewModel()
-    @State private var condition: DropdownMenuOption? = nil
     @State var itemName: String = ""
     @State var description: String = ""
     @State var price: Int = 0
@@ -99,7 +98,7 @@ struct HousingPostView: View {
                         newHousingListing.description = description
                         newHousingListing.price = price
                         viewModel.saveHousingPostImages(items: photoViewModel.imageSelections, user: authViewModel.mockUser,listing: newHousingListing)
-                            
+                        
                     } label: {
                         Text("Submit")
                             .font(.title2)
@@ -114,19 +113,19 @@ struct HousingPostView: View {
                     //                )
                     .cornerRadius(9)
                     .shadow(radius: 4 , x: 2, y: 3)
-                        //retrievePhotos()
-                        
-                        
+                    //retrievePhotos()
+                    
+                    
                     Button {
                         /*
-                        let collectionReference = db.collection("listings")
-                        collectionReference.addDocument(data:[
-                            "id": newListing.id,
-                            "title": newListing.title,
-                            "description": newListing.description,
-                            "price": newListing.price,
-                            "condition": newListing.condition/*,
-                            "url": newListing.imgURL*/])*/
+                         let collectionReference = db.collection("listings")
+                         collectionReference.addDocument(data:[
+                         "id": newListing.id,
+                         "title": newListing.title,
+                         "description": newListing.description,
+                         "price": newListing.price,
+                         "condition": newListing.condition/*,
+                                                           "url": newListing.imgURL*/])*/
                         print("Current Image Path: \(newHousingListing.imgURL)")
                         retrievePhotos(listing: newHousingListing)
                         
@@ -172,18 +171,18 @@ struct HousingPostView: View {
                     //                )
                     .cornerRadius(9)
                     .shadow(radius: 4 , x: 2, y: 3)
-                                      
+                    
                     //Divider()
                     
-                    }
                 }
-            
-                
             }
-            .navigationTitle("New Listing")
-            .navigationBarTitleDisplayMode(.large)
+            
+            
+        }
+        .navigationTitle("New Listing")
+        .navigationBarTitleDisplayMode(.large)
         
-    
+        
     }
     func randomString(length: Int) -> String {
         let characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
@@ -227,32 +226,32 @@ struct HousingPostView: View {
                         
                         // Retrieve the data
                         fileRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
-                        // Check for errors
-                        if error == nil && data != nil{
-                            
-                            // Create a UIImage and put it into our array for display
-                            if let image = UIImage(data: data!) {
-                                //newListing.img = image
-                                DispatchQueue.main.async {
-                                    listing.addImages(image: image)
+                            // Check for errors
+                            if error == nil && data != nil{
+                                
+                                // Create a UIImage and put it into our array for display
+                                if let image = UIImage(data: data!) {
+                                    //newListing.img = image
+                                    DispatchQueue.main.async {
+                                        listing.addImages(image: image)
+                                    }
                                 }
                             }
                         }
-                    }
                         break
-                }
+                    }
                     
                 }
-            }
+            } 
         }
     }
     
 }
-    struct HousingPostView_Previews: PreviewProvider {
-        @State static var listings: [ImageListing] = []
-        static var previews: some View {
-            HousingPostView()
-                .environmentObject(PhotoPickerViewModel())
-                .environmentObject(ImgListing())
-        }
+struct HousingPostView_Previews: PreviewProvider {
+    @State static var listings: [ImageListing] = []
+    static var previews: some View {
+        HousingPostView()
+            .environmentObject(PhotoPickerViewModel())
+            .environmentObject(ImgListing())
     }
+}
