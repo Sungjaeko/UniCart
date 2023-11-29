@@ -24,7 +24,7 @@ final class StorageManager{
     }
     
     // Saves images in a folder according to user
-    func userSaveImages(data: Data, userId: String, listing: ImgListing) async throws -> (path:String,name:String){
+    func userSaveImages(data: Data, userId: String, listing: ImgListing) async throws -> String{
         let meta = StorageMetadata()
         meta.contentType = "image/jpeg"
         let imgID = "\(UUID().uuidString).jpeg"
@@ -47,7 +47,7 @@ final class StorageManager{
                                                                 "condition":listing.condition])
         listing.upUrl(path: path)
         print("Path from userSaveImages:\(path)")
-        return (returnedPath,returnedName)
+        return (path)
     }
     
     func userSaveHousingImages(data: Data, userId: String, listing: HousingListing) async throws -> (path:String,name:String){

@@ -19,7 +19,6 @@ class ImagesList: ObservableObject{
 
 
 struct PostView: View {
-    //@Binding var listings: [ImageListing]
     let db = Firestore.firestore()
     @StateObject var photoViewModel = PhotoPickerViewModel()
     @StateObject private var viewModel = PostViewModel()
@@ -104,7 +103,19 @@ struct PostView: View {
                         newListing.description = description
                         newListing.price = price
                         newListing.condition = condition?.option ?? "No Condition"
-                        viewModel.savePostImages(items: photoViewModel.imageSelections, user: authViewModel.mockUser,listing: newListing)
+                        Task{
+                            do{
+                                let path = try await viewModel.savePostImages(items: photoViewModel.imageSelections, user: authViewModel.mockUser,listing: newListing)
+                                await MainActor.run{
+                                    newListing.imgURL = path
+                                    retrievePhotos(listing: newListing)
+                                    
+                                }
+                                
+                            }
+                        }
+                        self.presentationMode.wrappedValue.dismiss()
+                                              
                             
                     } label: {
                         Text("Submit")
@@ -115,72 +126,10 @@ struct PostView: View {
                     .frame(height:50)
                     .frame(maxWidth: 300)
                     .background(Color.blue)
-                    //                .background(
-                    //                    LinearGradient(colors: [.red,.blue],startPoint: .topLeading,endPoint: .bottomTrailing)
-                    //                )
+          
                     .cornerRadius(9)
                     .shadow(radius: 4 , x: 2, y: 3)
-                        //retrievePhotos()
-                        
-                        
-                    Button {
-                        /*
-                        let collectionReference = db.collection("listings")
-                        collectionReference.addDocument(data:[
-                            "id": newListing.id,
-                            "title": newListing.title,
-                            "description": newListing.description,
-                            "price": newListing.price,
-                            "condition": newListing.condition/*,
-                            "url": newListing.imgURL*/])*/
-                        print("Current Image Path: \(newListing.imgURL)")
-                        retrievePhotos(listing: newListing)
-                        
-                        //itemListings.listings.append(newListing)
-                        
-                        
-                        //self.presentationMode.wrappedValue.dismiss()
-                        
-                    } label: {
-                        Text("Submit to Db")
-                            .font(.title2)
-                            .bold()
-                            .foregroundColor(.white)
-                    }
-                    .frame(height:50)
-                    .frame(maxWidth: 300)
-                    .background(Color.blue)
-                    //                .background(
-                    //                    LinearGradient(colors: [.red,.blue],startPoint: .topLeading,endPoint: .bottomTrailing)
-                    //                )
-                    .cornerRadius(9)
-                    .shadow(radius: 4 , x: 2, y: 3)
-                    
-                    .padding()
-                    Button {
-                        
-                        itemListings.listings.append(newListing)
-                        
-                        
-                        self.presentationMode.wrappedValue.dismiss()
-                        
-                    } label: {
-                        Text("add images")
-                            .font(.title2)
-                            .bold()
-                            .foregroundColor(.white)
-                    }
-                    .frame(height:50)
-                    .frame(maxWidth: 300)
-                    .background(Color.blue)
-                    //                .background(
-                    //                    LinearGradient(colors: [.red,.blue],startPoint: .topLeading,endPoint: .bottomTrailing)
-                    //                )
-                    .cornerRadius(9)
-                    .shadow(radius: 4 , x: 2, y: 3)
-                                      
-                    //Divider()
-                    
+                   
                     }
                 }
             
@@ -204,7 +153,7 @@ struct PostView: View {
         return randomString
     }
     
-    func retrievePhotos(listing: ImgListing) {
+    func retrievePhotos(listing: ImgListing){
         // Get the data from the database
         let db = Firestore.firestore()
         
@@ -219,11 +168,7 @@ struct PostView: View {
                 // Loop through each file path and fetch the data from the storage
                 
                 for path in paths {
-                    // Get a reference to storage
-                    print("Current path in db:\(path)")
-                    print("Listing Path:\(listing.imgURL)")
                     if (path == listing.imgURL){
-                        print("MATCH")
                         let storageRef = Storage.storage().reference()
                         
                         // Specify the path
@@ -239,11 +184,14 @@ struct PostView: View {
                                 //newListing.img = image
                                 DispatchQueue.main.async {
                                     listing.addImages(image: image)
+                                    itemListings.listings.append(listing)
+                                    
                                 }
                             }
                         }
                     }
                         break
+                        
                 }
                     
                 }
