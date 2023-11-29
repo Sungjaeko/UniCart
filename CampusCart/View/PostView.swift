@@ -54,9 +54,6 @@ struct PostView: View {
                             }
                         }
                     }
-                    else{
-                        Text("No Images to show")
-                    }
                     
                     PhotosPicker(selection: $photoViewModel.imageSelections, matching: .images, photoLibrary: .shared()){
                         Text("Select photos")

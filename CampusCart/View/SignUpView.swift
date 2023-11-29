@@ -15,6 +15,7 @@ struct SignUpView: View {
     @State var password: String = ""
     @State var showPassword: Bool = false
     @State var confirmPassword: String = ""
+    @State private var logInActive: Bool = false
     @EnvironmentObject var viewModel: AuthViewModel
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
@@ -117,6 +118,7 @@ struct SignUpView: View {
                         }
                     }
                     // if password and confirmPassword do not match, throw an error
+                    /*
                     NavigationLink(destination: LoginView()) {
                         Button {
                             Task {
@@ -128,6 +130,7 @@ struct SignUpView: View {
                                 .font(.title2)
                                 .bold()
                                 .foregroundColor(.white)
+                            
                         }
                     }
                         .frame(height:50)
@@ -135,7 +138,28 @@ struct SignUpView: View {
                         .disabled(!formIsValid)
                         .opacity(formIsValid ? 1.0 : 0.5)
                         .background(Color.green.opacity(0.6))
-                        .cornerRadius(20)
+                        .cornerRadius(20)*/
+                    
+                    Button("Sign Up"){
+                        Task {
+                            try await viewModel.createUser(withEmail: email, firstName: firstName, lastName: lastName, password: password, confirmPassword: confirmPassword)
+                        }
+                        logInActive = true
+                    }
+                    .font(.title2)
+                    .bold()
+                    .foregroundColor(.white)
+                    .frame(height:50)
+                    .frame(maxWidth: 280)
+                    .disabled(!formIsValid)
+                    .opacity(formIsValid ? 1.0 : 0.5)
+                    .background(Color.green.opacity(0.6))
+                    .cornerRadius(20)
+                    NavigationLink(
+                        destination: LoginView(),
+                        isActive: $logInActive){
+                            EmptyView()
+                        }
                     
                     NavigationLink {
                         LoginView()
