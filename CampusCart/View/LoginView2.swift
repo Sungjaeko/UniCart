@@ -53,14 +53,13 @@ struct LoginView2: View {
                 }
                 .foregroundColor(.white)
                 .frame(width: 300, height: 50)
-                .background(LinearGradient(colors: [.pink.opacity(0.3),.red
-                    .opacity(0.8)],startPoint: .topLeading,endPoint: .bottomTrailing))
+                .background(.red.opacity(0.8))
                 .cornerRadius(10)
                 .disabled(!formIsValid)
                 .opacity(formIsValid ? 1.0 : 0.5)
                 
                 NavigationLink {
-                    SignUpView()
+                    SignUpView2()
                         .navigationBarBackButtonHidden()
                 } label: {
                     HStack(spacing: 3) {
@@ -72,14 +71,11 @@ struct LoginView2: View {
                     }
                     
                 }
-                
-                Spacer()
-                
                 NavigationLink (destination: MainView(), isActive: $isLogged, label: {
                     EmptyView()
                 })
                 .hidden()
-                
+                Spacer()
             }
         }
     }

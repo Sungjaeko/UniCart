@@ -27,7 +27,7 @@ struct SignUpInputView: View {
                     .font(.system(size: 14))
                     .foregroundStyle(.gray.opacity(0.9))
             }
-           
+           Divider()
         }
     }
 }
