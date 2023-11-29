@@ -42,8 +42,14 @@
 		68BD0C6C2AD3D39F00C90E6A /* SettingsRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BD0C6B2AD3D39F00C90E6A /* SettingsRowView.swift */; };
 		68D437DE2B14A3D70018E248 /* ListingRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D437DD2B14A3D70018E248 /* ListingRowView.swift */; };
 		68D437E02B158A320018E248 /* HousingPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D437DF2B158A320018E248 /* HousingPostView.swift */; };
-		68D437E22B158B580018E248 /* HousingListing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D437E12B158B580018E248 /* HousingListing.swift */; };
 		68D437E42B15A4EB0018E248 /* HousingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D437E32B15A4EB0018E248 /* HousingViewModel.swift */; };
+		68D437E62B16C53A0018E248 /* MiscPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D437E52B16C53A0018E248 /* MiscPostView.swift */; };
+		68D437E82B16C8270018E248 /* MiscViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D437E72B16C8270018E248 /* MiscViewModel.swift */; };
+		68D437EA2B16CA260018E248 /* MiscListing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D437E92B16CA260018E248 /* MiscListing.swift */; };
+		68D437EC2B16CC130018E248 /* MiscStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D437EB2B16CC130018E248 /* MiscStorageManager.swift */; };
+		68D437EE2B16ECF80018E248 /* HousingListing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D437ED2B16ECF80018E248 /* HousingListing.swift */; };
+		68D437F02B16ED640018E248 /* HousingStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D437EF2B16ED640018E248 /* HousingStorageManager.swift */; };
+		68D437F22B1701A70018E248 /* HousingPhotoPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D437F12B1701A70018E248 /* HousingPhotoPickerViewModel.swift */; };
 		68DCED032AC4AF4D002322A4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 68DCED022AC4AF4D002322A4 /* GoogleService-Info.plist */; };
 		68DCED092AC4B596002322A4 /* CampusCartDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DCED082AC4B596002322A4 /* CampusCartDelegate.swift */; };
 		68E12B202AFB790000662DEC /* DropdownMenuOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E12B1F2AFB790000662DEC /* DropdownMenuOption.swift */; };
@@ -86,8 +92,14 @@
 		68BD0C6B2AD3D39F00C90E6A /* SettingsRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRowView.swift; sourceTree = "<group>"; };
 		68D437DD2B14A3D70018E248 /* ListingRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingRowView.swift; sourceTree = "<group>"; };
 		68D437DF2B158A320018E248 /* HousingPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HousingPostView.swift; sourceTree = "<group>"; };
-		68D437E12B158B580018E248 /* HousingListing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HousingListing.swift; sourceTree = "<group>"; };
 		68D437E32B15A4EB0018E248 /* HousingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HousingViewModel.swift; sourceTree = "<group>"; };
+		68D437E52B16C53A0018E248 /* MiscPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiscPostView.swift; sourceTree = "<group>"; };
+		68D437E72B16C8270018E248 /* MiscViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiscViewModel.swift; sourceTree = "<group>"; };
+		68D437E92B16CA260018E248 /* MiscListing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiscListing.swift; sourceTree = "<group>"; };
+		68D437EB2B16CC130018E248 /* MiscStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiscStorageManager.swift; sourceTree = "<group>"; };
+		68D437ED2B16ECF80018E248 /* HousingListing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HousingListing.swift; sourceTree = "<group>"; };
+		68D437EF2B16ED640018E248 /* HousingStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HousingStorageManager.swift; sourceTree = "<group>"; };
+		68D437F12B1701A70018E248 /* HousingPhotoPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HousingPhotoPickerViewModel.swift; sourceTree = "<group>"; };
 		68DCED022AC4AF4D002322A4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		68DCED082AC4B596002322A4 /* CampusCartDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampusCartDelegate.swift; sourceTree = "<group>"; };
 		68E12B1F2AFB790000662DEC /* DropdownMenuOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownMenuOption.swift; sourceTree = "<group>"; };
@@ -167,6 +179,7 @@
 			children = (
 				2B3891222AE0626800E474F2 /* CategoryViews */,
 				2BD7C2AD2AC50B830042F09D /* LoginView.swift */,
+				68D437E52B16C53A0018E248 /* MiscPostView.swift */,
 				68D437DF2B158A320018E248 /* HousingPostView.swift */,
 				687787112ACA3A4B00356E67 /* SignUpView.swift */,
 				687787162ACBA07E00356E67 /* MainView.swift */,
@@ -218,8 +231,11 @@
 				68214CA12AEF9195007BE07B /* PhotoPickerViewModel.swift */,
 				2B5C775F2AFAF9210046C1D3 /* ImgListing.swift */,
 				2B5C77622AFB0EA90046C1D3 /* PostViewModel.swift */,
-				68D437E12B158B580018E248 /* HousingListing.swift */,
 				68D437E32B15A4EB0018E248 /* HousingViewModel.swift */,
+				68D437E72B16C8270018E248 /* MiscViewModel.swift */,
+				68D437E92B16CA260018E248 /* MiscListing.swift */,
+				68D437ED2B16ECF80018E248 /* HousingListing.swift */,
+				68D437F12B1701A70018E248 /* HousingPhotoPickerViewModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -228,6 +244,8 @@
 			isa = PBXGroup;
 			children = (
 				B458A3D52AF55A160024B0C2 /* StorageManager.swift */,
+				68D437EB2B16CC130018E248 /* MiscStorageManager.swift */,
+				68D437EF2B16ED640018E248 /* HousingStorageManager.swift */,
 			);
 			path = Storage;
 			sourceTree = "<group>";
@@ -321,9 +339,10 @@
 				2BFA4A882ACD429C006E4D9F /* HomeView.swift in Sources */,
 				68214C9C2AEEEEEC007BE07B /* CircularProfileImageView.swift in Sources */,
 				68BD0C6C2AD3D39F00C90E6A /* SettingsRowView.swift in Sources */,
+				68D437EA2B16CA260018E248 /* MiscListing.swift in Sources */,
 				687787172ACBA07E00356E67 /* MainView.swift in Sources */,
 				687787262ACBDB6300356E67 /* ImageListing.swift in Sources */,
-				68D437E22B158B580018E248 /* HousingListing.swift in Sources */,
+				68D437E82B16C8270018E248 /* MiscViewModel.swift in Sources */,
 				2BFA4A862ACD4219006E4D9F /* DMView.swift in Sources */,
 				2B3AEF232AB9A277006D928B /* ContentView.swift in Sources */,
 				68D437E02B158A320018E248 /* HousingPostView.swift in Sources */,
@@ -335,6 +354,7 @@
 				687787192ACBA83800356E67 /* AuthViewModel.swift in Sources */,
 				687787242ACBD8C400356E67 /* User.swift in Sources */,
 				68B3C7F32AD7B0C1005EAFA3 /* HomeViewButtonView.swift in Sources */,
+				68D437EC2B16CC130018E248 /* MiscStorageManager.swift in Sources */,
 				687787152ACB475900356E67 /* SignUpInputView.swift in Sources */,
 				2BD7C2AE2AC50B830042F09D /* LoginView.swift in Sources */,
 				B458A3D62AF55A160024B0C2 /* StorageManager.swift in Sources */,
@@ -342,12 +362,16 @@
 				2BFA4A822ACD410A006E4D9F /* ProfileView.swift in Sources */,
 				68D437E42B15A4EB0018E248 /* HousingViewModel.swift in Sources */,
 				68E12B202AFB790000662DEC /* DropdownMenuOption.swift in Sources */,
+				68D437EE2B16ECF80018E248 /* HousingListing.swift in Sources */,
 				2B5C77632AFB0EA90046C1D3 /* PostViewModel.swift in Sources */,
+				68D437E62B16C53A0018E248 /* MiscPostView.swift in Sources */,
 				68E12B222AFB7A2300662DEC /* DropdownMenu.swift in Sources */,
 				68D437DE2B14A3D70018E248 /* ListingRowView.swift in Sources */,
+				68D437F02B16ED640018E248 /* HousingStorageManager.swift in Sources */,
 				68BBB4312AE2F5F000F19F21 /* Photo.swift in Sources */,
 				2BFA4A842ACD420E006E4D9F /* PostView.swift in Sources */,
 				68E12B262AFB7D3300662DEC /* DropdownMenuListRow.swift in Sources */,
+				68D437F22B1701A70018E248 /* HousingPhotoPickerViewModel.swift in Sources */,
 				687787122ACA3A4B00356E67 /* SignUpView.swift in Sources */,
 				2B3891262AE062D900E474F2 /* SidejobsView.swift in Sources */,
 			);

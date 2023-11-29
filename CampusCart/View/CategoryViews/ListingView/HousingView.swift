@@ -7,18 +7,15 @@ import FirebaseStorage
 
 
 struct HousingView: View {
-    //@State var listings: [ImageListing]
-    //@StateObject private var newListing = ImgListing()
-    //@Binding var retrievedImages: [UIImage]
     @State private var searchText: String = ""
-    
-    @StateObject var housingListings = HousingListing.sharedListings
+    @StateObject var sharedData = ImagesList.shared
+    @StateObject var itemListings = HousingListing.sharedListings
     
     var filteredListings: [HousingListing] {
         if searchText.isEmpty {
-            return housingListings.listings
+            return itemListings.listings
         } else {
-            return housingListings.listings.filter { $0.title.lowercased().contains(searchText.lowercased()) }
+            return itemListings.listings.filter { $0.title.lowercased().contains(searchText.lowercased()) }
         }
     }
     
@@ -47,7 +44,7 @@ struct HousingView: View {
                     }
                     .padding()
                     VStack (alignment: .leading){
-                        ForEach(housingListings.listings, id: \.self) { listing in
+                        ForEach(itemListings.listings, id: \.self) { listing in
                             HStack(alignment: .top){
                                 ForEach(listing.img, id: \.self) {image in
                                     

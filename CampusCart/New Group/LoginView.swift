@@ -9,13 +9,14 @@ import SwiftUI
 import Firebase
 
 struct LoginView: View {
+    @State private var isLogged = false
     @State var email: String = ""
     @State var password: String = ""
     @State var showPassword: Bool = false
     @EnvironmentObject var viewModel: AuthViewModel
     let color = UIColor(red: 0.96, green: 0.54, blue: 0.10, alpha: 1.0)
     var body: some View {
-        NavigationStack {
+        NavigationView {
             ZStack {
                 Color.gray
                     .opacity(0.12)
@@ -98,10 +99,15 @@ struct LoginView: View {
                         }
                         
                     }
+                    NavigationLink (destination: HomeView(), isActive: $isLogged, label: {
+                        EmptyView()
+                    })
+                    .hidden()
                     
                     Button{
                         Task {
                             try await viewModel.login(withEmail: email, password: password)
+                            isLogged = true
                         }
                     }
                 

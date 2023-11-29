@@ -1,5 +1,5 @@
 //
-//  HousingListing.swift
+//  MiscListing.swift
 //  CampusCart
 //
 //  Created by Sung Jae Ko on 11/28/23.
@@ -8,11 +8,11 @@
 import Foundation
 import SwiftUI
 
-class HousingListing: ObservableObject, Identifiable, Hashable {
+class MiscListing: ObservableObject, Identifiable, Hashable {
     
-    static let sharedListings = HousingListing()
+    static let sharedListings = MiscListing()
     
-    @Published var listings = [HousingListing]()
+    @Published var listings = [MiscListing]()
     @Published var id: String = ""
     @Published var title: String = ""
     @Published var description: String = ""
@@ -20,7 +20,7 @@ class HousingListing: ObservableObject, Identifiable, Hashable {
     @Published var imgURL: String = ""
     @Published var img = [UIImage]()
     
-    static func == (lhs: HousingListing, rhs: HousingListing) -> Bool {
+    static func == (lhs: MiscListing, rhs: MiscListing) -> Bool {
             return lhs.id == rhs.id
         }
 

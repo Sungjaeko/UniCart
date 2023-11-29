@@ -1,8 +1,8 @@
 //
-//  PostView.swift
+//  MiscPostView.swift
 //  CampusCart
 //
-//  Created by Bryan Apodaca on 10/3/23.
+//  Created by Sung Jae Ko on 11/28/23.
 //
 
 import SwiftUI
@@ -10,27 +10,25 @@ import PhotosUI
 import Firebase
 import FirebaseStorage
 
-class HousingImagesList: ObservableObject{
-    static let shared = HousingImagesList()
+class MiscImagesList: ObservableObject{
+    static let shared = MiscImagesList()
     
     @Published var retrievedImages = [UIImage]()
 }
 
-
-
-struct HousingPostView: View {
-    //@Binding var listings: [ImageListing]
+struct MiscPostView: View {
     let db = Firestore.firestore()
-    @StateObject var photoViewModel = HousingPhotoPickerViewModel()
-    @StateObject private var viewModel = HousingViewModel()
+    @StateObject var photoViewModel = PhotoPickerViewModel()
+    @StateObject private var viewModel = MiscViewModel()
     @StateObject private var authViewModel = AuthViewModel()
     @State var itemName: String = ""
     @State var description: String = ""
     @State var price: Int = 0
-    @StateObject var itemListings = HousingListing.sharedListings
+    @StateObject var sharedData = ImagesList.shared
+    @StateObject var itemListings = MiscListing.sharedListings
     @State private var selectedItem: PhotosPickerItem? = nil
     @State private var selectedItems: [PhotosPickerItem] = []
-    @StateObject var newHousingListing = HousingListing()
+    @StateObject var newListing = MiscListing()
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     var body: some View {
@@ -93,12 +91,12 @@ struct HousingPostView: View {
                     Button {
                         
                         let randomId = randomString(length: 10)
-                        newHousingListing.id = randomId
-                        newHousingListing.title = itemName
-                        newHousingListing.description = description
-                        newHousingListing.price = price
-                        viewModel.saveHousingPostImages(items: photoViewModel.imageSelections, user: authViewModel.mockUser,listing: newHousingListing)
-                        
+                        newListing.id = randomId
+                        newListing.title = itemName
+                        newListing.description = description
+                        newListing.price = price
+                        viewModel.savePostImages(items: photoViewModel.imageSelections, user: authViewModel.mockUser,listing: newListing)
+                            
                     } label: {
                         Text("Submit")
                             .font(.title2)
@@ -113,12 +111,26 @@ struct HousingPostView: View {
                     //                )
                     .cornerRadius(9)
                     .shadow(radius: 4 , x: 2, y: 3)
-                    //retrievePhotos()
-                    
-                    
+                        //retrievePhotos()
+                        
+                        
                     Button {
-                        print("Current Image Path: \(newHousingListing.imgURL)")
-                        retrievePhotos(listing: newHousingListing)
+                        /*
+                        let collectionReference = db.collection("listings")
+                        collectionReference.addDocument(data:[
+                            "id": newListing.id,
+                            "title": newListing.title,
+                            "description": newListing.description,
+                            "price": newListing.price,
+                            "condition": newListing.condition/*,
+                            "url": newListing.imgURL*/])*/
+                        print("Current Image Path: \(newListing.imgURL)")
+                        retrievePhotos(listing: newListing)
+                        
+                        //itemListings.listings.append(newListing)
+                        
+                        
+                        //self.presentationMode.wrappedValue.dismiss()
                         
                     } label: {
                         Text("Submit to Db")
@@ -138,7 +150,7 @@ struct HousingPostView: View {
                     .padding()
                     Button {
                         
-                        itemListings.listings.append(newHousingListing)
+                        itemListings.listings.append(newListing)
                         
                         
                         self.presentationMode.wrappedValue.dismiss()
@@ -157,18 +169,18 @@ struct HousingPostView: View {
                     //                )
                     .cornerRadius(9)
                     .shadow(radius: 4 , x: 2, y: 3)
-                    
+                                      
                     //Divider()
                     
+                    }
                 }
+            
+                
             }
-            
-            
-        }
-        .navigationTitle("New Listing")
-        .navigationBarTitleDisplayMode(.large)
+            .navigationTitle("New Listing")
+            .navigationBarTitleDisplayMode(.large)
         
-        
+    
     }
     func randomString(length: Int) -> String {
         let characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
@@ -183,12 +195,11 @@ struct HousingPostView: View {
         return randomString
     }
     
-    func retrievePhotos(listing: HousingListing) {
+    func retrievePhotos(listing: MiscListing) {
         // Get the data from the database
         let db = Firestore.firestore()
         
-        db.collection("housing").getDocuments { snapshot, error in
-            print("YOU GOT HERE 1")
+        db.collection("miscellaneous").getDocuments { snapshot, error in
             if error == nil && snapshot != nil {
                 var paths = [String]()
                 // Loop through all the returned docs
@@ -196,7 +207,6 @@ struct HousingPostView: View {
                     // extract the file path and add to array
                     paths.append(doc["url"] as! String)
                 }
-                print("YOU GOT HERE 2")
                 // Loop through each file path and fetch the data from the storage
                 
                 for path in paths {
@@ -212,31 +222,32 @@ struct HousingPostView: View {
                         
                         // Retrieve the data
                         fileRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
-                            // Check for errors
-                            if error == nil && data != nil{
-                                
-                                // Create a UIImage and put it into our array for display
-                                if let image = UIImage(data: data!) {
-                                    //newListing.img = image
-                                    DispatchQueue.main.async {
-                                        listing.addImages(image: image)
-                                    }
+                        // Check for errors
+                        if error == nil && data != nil{
+                            
+                            // Create a UIImage and put it into our array for display
+                            if let image = UIImage(data: data!) {
+                                //newListing.img = image
+                                DispatchQueue.main.async {
+                                    listing.addImages(image: image)
                                 }
                             }
                         }
-                        break
                     }
+                        break
+                }
                     
                 }
-            } 
+            }
         }
     }
-    
 }
-struct HousingPostView_Previews: PreviewProvider {
+
+
+struct MiscPostView_Previews: PreviewProvider {
     static var previews: some View {
-        HousingPostView()
-            .environmentObject(HousingPhotoPickerViewModel())
-            .environmentObject(HousingListing())
+        MiscPostView()
+            .environmentObject(PhotoPickerViewModel())
+            .environmentObject(MiscListing())
     }
 }

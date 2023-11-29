@@ -19,6 +19,7 @@ protocol AuthenticationFormProtocol {
 class AuthViewModel: ObservableObject {
     @Published var userSession: FirebaseAuth.User?
     @Published var currentUser: User?
+    @Published var isLoggedIn = false
     let mockUser = User.MOCK_USER
     @State private var alertMessage = ""
     @State private var showAlert = false

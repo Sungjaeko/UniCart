@@ -16,7 +16,7 @@ struct SignUpView: View {
     @State var showPassword: Bool = false
     @State var confirmPassword: String = ""
     @EnvironmentObject var viewModel: AuthViewModel
-    
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     var body: some View {
         NavigationStack {
@@ -122,6 +122,7 @@ struct SignUpView: View {
                             Task {
                                 try await viewModel.createUser(withEmail: email, firstName: firstName, lastName: lastName, password: password, confirmPassword: confirmPassword)
                             }
+                            //self.presentationMode.wrappedValue.dismiss()
                         } label: {
                             Text("Sign up")
                                 .font(.title2)
