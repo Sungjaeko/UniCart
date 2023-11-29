@@ -50,6 +50,7 @@
 		68D437EE2B16ECF80018E248 /* HousingListing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D437ED2B16ECF80018E248 /* HousingListing.swift */; };
 		68D437F02B16ED640018E248 /* HousingStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D437EF2B16ED640018E248 /* HousingStorageManager.swift */; };
 		68D437F22B1701A70018E248 /* HousingPhotoPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D437F12B1701A70018E248 /* HousingPhotoPickerViewModel.swift */; };
+		68D437F62B17D6490018E248 /* LoginView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D437F52B17D6490018E248 /* LoginView2.swift */; };
 		68DCED032AC4AF4D002322A4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 68DCED022AC4AF4D002322A4 /* GoogleService-Info.plist */; };
 		68DCED092AC4B596002322A4 /* CampusCartDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DCED082AC4B596002322A4 /* CampusCartDelegate.swift */; };
 		68E12B202AFB790000662DEC /* DropdownMenuOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E12B1F2AFB790000662DEC /* DropdownMenuOption.swift */; };
@@ -100,6 +101,7 @@
 		68D437ED2B16ECF80018E248 /* HousingListing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HousingListing.swift; sourceTree = "<group>"; };
 		68D437EF2B16ED640018E248 /* HousingStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HousingStorageManager.swift; sourceTree = "<group>"; };
 		68D437F12B1701A70018E248 /* HousingPhotoPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HousingPhotoPickerViewModel.swift; sourceTree = "<group>"; };
+		68D437F52B17D6490018E248 /* LoginView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView2.swift; sourceTree = "<group>"; };
 		68DCED022AC4AF4D002322A4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		68DCED082AC4B596002322A4 /* CampusCartDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampusCartDelegate.swift; sourceTree = "<group>"; };
 		68E12B1F2AFB790000662DEC /* DropdownMenuOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownMenuOption.swift; sourceTree = "<group>"; };
@@ -188,6 +190,7 @@
 				2BFA4A852ACD4219006E4D9F /* DMView.swift */,
 				2BFA4A812ACD410A006E4D9F /* ProfileView.swift */,
 				2B3AEF222AB9A277006D928B /* ContentView.swift */,
+				68D437F52B17D6490018E248 /* LoginView2.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -352,6 +355,7 @@
 				68E12B242AFB7C9900662DEC /* DropdownMenuList.swift in Sources */,
 				2B3891242AE062C900E474F2 /* HousingView.swift in Sources */,
 				687787192ACBA83800356E67 /* AuthViewModel.swift in Sources */,
+				68D437F62B17D6490018E248 /* LoginView2.swift in Sources */,
 				687787242ACBD8C400356E67 /* User.swift in Sources */,
 				68B3C7F32AD7B0C1005EAFA3 /* HomeViewButtonView.swift in Sources */,
 				68D437EC2B16CC130018E248 /* MiscStorageManager.swift in Sources */,
