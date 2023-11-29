@@ -25,7 +25,7 @@ final class MiscStorageManager {
     
     
     // Saves images in a folder according to user
-    func userSaveImages(data: Data, userId: String, listing: MiscListing) async throws -> (path:String,name:String){
+    func userSaveImages(data: Data, userId: String, listing: MiscListing) async throws -> String{
         let meta = StorageMetadata()
         meta.contentType = "image/jpeg"
         let imgID = "\(UUID().uuidString).jpeg"
@@ -47,6 +47,6 @@ final class MiscStorageManager {
                                                                 "id":listing.id])
         listing.upUrl(path: path)
         print("Path from userSaveImages:\(path)")
-        return (returnedPath,returnedName)
+        return (path)
     }
 }

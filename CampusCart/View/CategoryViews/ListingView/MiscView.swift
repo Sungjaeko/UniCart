@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MiscView: View {
     @State private var searchText: String = ""
-    @StateObject var sharedData = ImagesList.shared
+    @StateObject var sharedData = MiscImagesList.shared
     @StateObject var itemListings = MiscListing.sharedListings
     
     var filteredListings: [MiscListing] {

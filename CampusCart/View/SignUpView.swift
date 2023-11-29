@@ -16,7 +16,7 @@ struct SignUpView: View {
     @State var showPassword: Bool = false
     @State var confirmPassword: String = ""
     @State private var logInActive: Bool = false
-    @EnvironmentObject var viewModel: AuthViewModel
+    @StateObject var viewModel = AuthViewModel()
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     var body: some View {
@@ -26,8 +26,8 @@ struct SignUpView: View {
                     .opacity(0.12)
                     .ignoresSafeArea()
                 VStack(alignment: .center, spacing: 15) {
-                    Text("Logo")
-                        .frame(maxWidth: .infinity, alignment: .center)
+                    /*Text("Logo")
+                        .frame(maxWidth: .infinity, alignment: .center)*/
 //                    Text("Create Account")
 //                        .frame(maxWidth: .infinity, alignment: .leading)
 //                        .font(.system(size: 35, weight: .heavy, design: .rounded))

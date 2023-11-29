@@ -13,7 +13,7 @@ struct LoginView: View {
     @State var email: String = ""
     @State var password: String = ""
     @State var showPassword: Bool = false
-    @EnvironmentObject var viewModel: AuthViewModel
+    @StateObject var viewModel = AuthViewModel()
     let color = UIColor(red: 0.96, green: 0.54, blue: 0.10, alpha: 1.0)
     var body: some View {
         NavigationView {
@@ -99,7 +99,7 @@ struct LoginView: View {
                         }
                         
                     }
-                    NavigationLink (destination: HomeView(), isActive: $isLogged, label: {
+                    NavigationLink (destination: MainView(), isActive: $isLogged, label: {
                         EmptyView()
                     })
                     .hidden()
@@ -129,10 +129,10 @@ struct LoginView: View {
                 .shadow(radius: 4 , x: 2, y: 3)
                 .padding()
                     Spacer()
-    
+                    /*
                     NavigationLink(destination: MainView()){
                     Text("Bypass Login")
-                }
+                }*/
                     
                 }
             }

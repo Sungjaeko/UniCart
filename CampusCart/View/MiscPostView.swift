@@ -95,7 +95,20 @@ struct MiscPostView: View {
                         newListing.title = itemName
                         newListing.description = description
                         newListing.price = price
-                        viewModel.savePostImages(items: photoViewModel.imageSelections, user: authViewModel.mockUser,listing: newListing)
+                        //newListing.condition = condition?.option ?? "No Condition"
+                        Task{
+                            do{
+                                let path = try await viewModel.savePostImages(items: photoViewModel.imageSelections, user: authViewModel.mockUser,listing: newListing)
+                                await MainActor.run{
+                                    newListing.imgURL = path
+                                    retrievePhotos(listing: newListing)
+                                    
+                                }
+                                
+                            }
+                        }
+                        self.presentationMode.wrappedValue.dismiss()
+                                              
                             
                     } label: {
                         Text("Submit")
@@ -106,67 +119,7 @@ struct MiscPostView: View {
                     .frame(height:50)
                     .frame(maxWidth: 300)
                     .background(Color.blue)
-                    //                .background(
-                    //                    LinearGradient(colors: [.red,.blue],startPoint: .topLeading,endPoint: .bottomTrailing)
-                    //                )
-                    .cornerRadius(9)
-                    .shadow(radius: 4 , x: 2, y: 3)
-                        //retrievePhotos()
-                        
-                        
-                    Button {
-                        /*
-                        let collectionReference = db.collection("listings")
-                        collectionReference.addDocument(data:[
-                            "id": newListing.id,
-                            "title": newListing.title,
-                            "description": newListing.description,
-                            "price": newListing.price,
-                            "condition": newListing.condition/*,
-                            "url": newListing.imgURL*/])*/
-                        print("Current Image Path: \(newListing.imgURL)")
-                        retrievePhotos(listing: newListing)
-                        
-                        //itemListings.listings.append(newListing)
-                        
-                        
-                        //self.presentationMode.wrappedValue.dismiss()
-                        
-                    } label: {
-                        Text("Submit to Db")
-                            .font(.title2)
-                            .bold()
-                            .foregroundColor(.white)
-                    }
-                    .frame(height:50)
-                    .frame(maxWidth: 300)
-                    .background(Color.blue)
-                    //                .background(
-                    //                    LinearGradient(colors: [.red,.blue],startPoint: .topLeading,endPoint: .bottomTrailing)
-                    //                )
-                    .cornerRadius(9)
-                    .shadow(radius: 4 , x: 2, y: 3)
-                    
-                    .padding()
-                    Button {
-                        
-                        itemListings.listings.append(newListing)
-                        
-                        
-                        self.presentationMode.wrappedValue.dismiss()
-                        
-                    } label: {
-                        Text("add images")
-                            .font(.title2)
-                            .bold()
-                            .foregroundColor(.white)
-                    }
-                    .frame(height:50)
-                    .frame(maxWidth: 300)
-                    .background(Color.blue)
-                    //                .background(
-                    //                    LinearGradient(colors: [.red,.blue],startPoint: .topLeading,endPoint: .bottomTrailing)
-                    //                )
+          
                     .cornerRadius(9)
                     .shadow(radius: 4 , x: 2, y: 3)
                                       
@@ -230,6 +183,8 @@ struct MiscPostView: View {
                                 //newListing.img = image
                                 DispatchQueue.main.async {
                                     listing.addImages(image: image)
+                                    itemListings.listings.append(listing)
+
                                 }
                             }
                         }

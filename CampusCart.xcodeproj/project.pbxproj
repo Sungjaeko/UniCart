@@ -214,8 +214,8 @@
 			children = (
 				2B3891232AE062C900E474F2 /* HousingView.swift */,
 				2B3891272AE062E900E474F2 /* MiscView.swift */,
-				2B3891252AE062D900E474F2 /* SidejobsView.swift */,
 				2B3891202AE05E5100E474F2 /* ItemsView.swift */,
+				2B3891252AE062D900E474F2 /* SidejobsView.swift */,
 			);
 			path = ListingView;
 			sourceTree = "<group>";
@@ -230,8 +230,8 @@
 				68214C972AEC3854007BE07B /* NoImageListing.swift */,
 				68214CA12AEF9195007BE07B /* PhotoPickerViewModel.swift */,
 				2B5C775F2AFAF9210046C1D3 /* ImgListing.swift */,
-				2B5C77622AFB0EA90046C1D3 /* PostViewModel.swift */,
 				68D437E32B15A4EB0018E248 /* HousingViewModel.swift */,
+				2B5C77622AFB0EA90046C1D3 /* PostViewModel.swift */,
 				68D437E72B16C8270018E248 /* MiscViewModel.swift */,
 				68D437E92B16CA260018E248 /* MiscListing.swift */,
 				68D437ED2B16ECF80018E248 /* HousingListing.swift */,
