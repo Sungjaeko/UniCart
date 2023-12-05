@@ -1,69 +1,66 @@
-//
-//  MiscViewModel.swift
-//  CampusCart
-//
-//  Created by Sung Jae Ko on 11/28/23.
-//
-
-import SwiftUI
 import Foundation
 import Firebase
-import PhotosUI
-import FirebaseStorage
 
+let COLLECTION_NAME = "miscellaneous"
+let PAGE_LIMIT = 20
 
-class MiscViewModel: ObservableObject{
-    @Published private(set) var selectedImages: [UIImage] = []
-    @Published var imageSelections: [PhotosPickerItem] = [] {
-        didSet{
-            setImages(from: imageSelections)
-        }
-    }
+enum ArticleServiceError: Error {
+    case mismatchedDocumentError
+    case unexpectedError
+}
+
+class MiscViewModel: ObservableObject {
+    private let db = Firestore.firestore()
+    @Published var error: Error?
     
-    func savePostImages(items: [PhotosPickerItem], user: User?,listing: MiscListing)async throws -> String{
-        guard let user else { print("sorry no user")
-            return "Error"
-        }
-        var firstPath: String?
-        do {
-               try await withThrowingTaskGroup(of: Void.self) { taskGroup in
-                   for item in items {
-                       guard let data = try await item.loadTransferable(type: Data.self) else {
-                           continue
-                       }
-                       let path = try await MiscStorageManager.shared.userSaveImages(data: data, userId: user.id, listing: listing)
-                       print("Path from savePostImages: \(path)")
+    func createPost(miscPost: NoImageListing) -> String {
+        var ref: DocumentReference? = nil
 
-                       // Store the path from the first successfully saved image
-                       if firstPath == nil {
-                           firstPath = path
-                       }
-
-                       // You can break the loop if you only want the path from the first image
-                       // taskGroup.cancelAll()
-                   }
-               }
-
-               // Return the path from the first successfully saved image, or a default value
-               return firstPath ?? "No images were successfully saved."
-           } catch {
-               print("Error saving images: \(error)")
-               throw error
-           }
-    }
-    
-    func setImages(from selections: [PhotosPickerItem]) {
-        Task {
-            var images: [UIImage] = []
-            for selection in selections {
-                if let data = try? await selection.loadTransferable(type: Data.self){
-                    if let uiImage = UIImage(data: data){
-                        images.append(uiImage)
-                        
-                    }
-                }
+        // addDocument is one of those “odd” methods.
+        ref = db.collection(COLLECTION_NAME).addDocument(data: [
+            "title": miscPost.title,
+            "date": miscPost.date, // This gets converted into a Firestore Timestamp.
+            "description": miscPost.description
+        ]) { possibleError in
+            if let actualError = possibleError {
+                self.error = actualError
             }
-            selectedImages = images
+        }
+
+        // If we don’t get a ref back, return an empty string to indicate “no ID.”
+        return ref?.documentID ?? ""
+    }
+    
+    func fetchPosts() async throws -> [NoImageListing] {
+        let postQuery = db.collection(COLLECTION_NAME)
+            .order(by: "date", descending: true)
+            .limit(to: PAGE_LIMIT)
+
+        // Fortunately, getDocuments does have an async version.
+        //
+        // Firestore calls query results “snapshots” because they represent a…wait for it…
+        // _snapshot_ of the data at the time that the query was made. (i.e., the content
+        // of the database may change after the query but you won’t see those changes here)
+        let querySnapshot = try await postQuery.getDocuments()
+
+        return try querySnapshot.documents.map {
+            // This is likely new Swift for you: type conversion is conditional, so they
+            // must be guarded in case they fail.
+            guard let title = $0.get("title") as? String,
+
+                // Firestore returns Swift Dates as its own Timestamp data type.
+                let dateAsTimestamp = $0.get("date") as? Timestamp,
+                let description = $0.get("description") as? String else {
+                throw ArticleServiceError.mismatchedDocumentError
+            }
+
+            return NoImageListing(
+                id: $0.documentID,
+                title: title,
+                description: description,
+                date: dateAsTimestamp.dateValue()
+                
+            )
         }
     }
 }

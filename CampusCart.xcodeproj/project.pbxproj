@@ -45,7 +45,6 @@
 		68D437E62B16C53A0018E248 /* MiscPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D437E52B16C53A0018E248 /* MiscPostView.swift */; };
 		68D437E82B16C8270018E248 /* MiscViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D437E72B16C8270018E248 /* MiscViewModel.swift */; };
 		68D437EA2B16CA260018E248 /* MiscListing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D437E92B16CA260018E248 /* MiscListing.swift */; };
-		68D437EC2B16CC130018E248 /* MiscStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D437EB2B16CC130018E248 /* MiscStorageManager.swift */; };
 		68D437EE2B16ECF80018E248 /* HousingListing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D437ED2B16ECF80018E248 /* HousingListing.swift */; };
 		68D437F02B16ED640018E248 /* HousingStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D437EF2B16ED640018E248 /* HousingStorageManager.swift */; };
 		68D437F22B1701A70018E248 /* HousingPhotoPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D437F12B1701A70018E248 /* HousingPhotoPickerViewModel.swift */; };
@@ -96,7 +95,6 @@
 		68D437E52B16C53A0018E248 /* MiscPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiscPostView.swift; sourceTree = "<group>"; };
 		68D437E72B16C8270018E248 /* MiscViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiscViewModel.swift; sourceTree = "<group>"; };
 		68D437E92B16CA260018E248 /* MiscListing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiscListing.swift; sourceTree = "<group>"; };
-		68D437EB2B16CC130018E248 /* MiscStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiscStorageManager.swift; sourceTree = "<group>"; };
 		68D437ED2B16ECF80018E248 /* HousingListing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HousingListing.swift; sourceTree = "<group>"; };
 		68D437EF2B16ED640018E248 /* HousingStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HousingStorageManager.swift; sourceTree = "<group>"; };
 		68D437F12B1701A70018E248 /* HousingPhotoPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HousingPhotoPickerViewModel.swift; sourceTree = "<group>"; };
@@ -247,7 +245,6 @@
 			isa = PBXGroup;
 			children = (
 				B458A3D52AF55A160024B0C2 /* StorageManager.swift */,
-				68D437EB2B16CC130018E248 /* MiscStorageManager.swift */,
 				68D437EF2B16ED640018E248 /* HousingStorageManager.swift */,
 			);
 			path = Storage;
@@ -358,7 +355,6 @@
 				68D437F62B17D6490018E248 /* LoginView2.swift in Sources */,
 				687787242ACBD8C400356E67 /* User.swift in Sources */,
 				68B3C7F32AD7B0C1005EAFA3 /* HomeViewButtonView.swift in Sources */,
-				68D437EC2B16CC130018E248 /* MiscStorageManager.swift in Sources */,
 				687787152ACB475900356E67 /* SignUpInputView.swift in Sources */,
 				2BD7C2AE2AC50B830042F09D /* LoginView.swift in Sources */,
 				B458A3D62AF55A160024B0C2 /* StorageManager.swift in Sources */,

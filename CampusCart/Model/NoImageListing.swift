@@ -11,5 +11,7 @@ struct NoImageListing: Hashable, Codable, Identifiable {
     var id: String
     var title: String
     var description: String
+    var date: Date
+
     
 }
