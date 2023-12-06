@@ -261,10 +261,11 @@ struct SignUpView: View {
                 
                 NavigationLink(
                     destination: LoginView2(),
-                    isActive: $logInActive){
+                    isActive: $logInActive,
+                    label: {
                         EmptyView()
                     }
-                
+                )
                 Spacer()
                 NavigationLink {
                     LoginView2()
