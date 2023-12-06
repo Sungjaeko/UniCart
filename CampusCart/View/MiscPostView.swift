@@ -12,15 +12,15 @@ import FirebaseStorage
 
 struct MiscPostView: View {
     @EnvironmentObject var viewModel: MiscViewModel
-    @StateObject private var authViewModel = AuthViewModel()
+    @EnvironmentObject var authViewModel: AuthViewModel
     @State var title: String = ""
     @State var description: String = ""
-    
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
  
     @Binding var posts: [NoImageListing]
-    @Binding var writing: Bool
+//    @Binding var writing: Bool
     
-    func submitArticle() {
+    func submitPost() {
         // We take a two-part approach here: this first part sends the article to
         // the database. The `createArticle` function gives us its ID.
         let postId = viewModel.createPost(miscPost: NoImageListing(
@@ -46,13 +46,17 @@ struct MiscPostView: View {
             description: description,
             date: Date()
         ))
-
-        writing = false
+        print("Post Submitted to db")
+        //writing = false
     }
     var body: some View {
         NavigationView {
             ScrollView {
                 VStack (alignment: .center) {
+                    Text("New Listing")
+                        .font(.system(size:35, weight: .bold, design: .rounded))
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding()
                     
 //                    Text("Required")
 //                        .frame(maxWidth: .infinity, alignment: .leading)
@@ -86,8 +90,9 @@ struct MiscPostView: View {
                     
                     Button("Submit"){
                         Task {
-                            submitArticle()
+                            submitPost()
                         }
+                        self.presentationMode.wrappedValue.dismiss()
                     }
                     .frame(width: UIScreen.main.bounds.width - 32, height: 48)
                     .fontWeight(.semibold)
@@ -97,8 +102,7 @@ struct MiscPostView: View {
                 
                 
             }
-            .navigationTitle("New Listing")
-            .navigationBarTitleDisplayMode(.large)
+
             
         }
     }
@@ -108,7 +112,7 @@ struct MiscPostView: View {
         @State static var posts: [NoImageListing] = []
         @State static var writing = true
         static var previews: some View {
-            MiscPostView(posts: $posts, writing: $writing)
+            MiscPostView(posts: $posts)
                 .environmentObject(MiscViewModel())
         }
     }

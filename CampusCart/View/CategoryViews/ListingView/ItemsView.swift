@@ -77,6 +77,7 @@ struct ItemsView: View {
                         }
                     }
                     .navigationBarTitle("Items")
+                    
                     Spacer()
                 }
                 

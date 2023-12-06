@@ -68,7 +68,7 @@ struct HomeView: View {
                             Button(action: {
                                 print("Button pressed")
                             }){
-                                NavigationLink(destination: MiscView()){
+                                NavigationLink(destination: MiscView(posts: [])){
                                     HomeViewButtonView(text: "Misc.", imageName: "questionmark", isHolding: isHolding)
                                 }
                             }
