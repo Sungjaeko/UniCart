@@ -21,7 +21,7 @@ class HousingImagesList: ObservableObject{
 struct HousingPostView: View {
     //@Binding var listings: [ImageListing]
     let db = Firestore.firestore()
-    @StateObject var photoViewModel = HousingPhotoPickerViewModel()
+    @StateObject var photoViewModel = PhotoPickerViewModel()
     @StateObject private var viewModel = HousingViewModel()
     @StateObject private var authViewModel = AuthViewModel()
     @State var itemName: String = ""
@@ -97,7 +97,20 @@ struct HousingPostView: View {
                         newHousingListing.title = itemName
                         newHousingListing.description = description
                         newHousingListing.price = price
-                        viewModel.saveHousingPostImages(items: photoViewModel.imageSelections, user: authViewModel.mockUser,listing: newHousingListing)
+                        Task{
+                            do{
+                                let path = try await viewModel.saveHousingPostImages(items: photoViewModel.imageSelections, user: authViewModel.mockUser,listing: newHousingListing)
+                                
+                                await MainActor.run{
+                                    newHousingListing.imgURL = path
+                                    retrievePhotos(listing: newHousingListing)
+                                    
+                                }
+                                
+                            }
+                        }
+                        self.presentationMode.wrappedValue.dismiss()
+                        
                         
                     } label: {
                         Text("Submit")
@@ -108,53 +121,7 @@ struct HousingPostView: View {
                     .frame(height:50)
                     .frame(maxWidth: 300)
                     .background(Color.blue)
-                    //                .background(
-                    //                    LinearGradient(colors: [.red,.blue],startPoint: .topLeading,endPoint: .bottomTrailing)
-                    //                )
-                    .cornerRadius(9)
-                    .shadow(radius: 4 , x: 2, y: 3)
-                    //retrievePhotos()
                     
-                    
-                    Button {
-                        print("Current Image Path: \(newHousingListing.imgURL)")
-                        retrievePhotos(listing: newHousingListing)
-                        
-                    } label: {
-                        Text("Submit to Db")
-                            .font(.title2)
-                            .bold()
-                            .foregroundColor(.white)
-                    }
-                    .frame(height:50)
-                    .frame(maxWidth: 300)
-                    .background(Color.blue)
-                    //                .background(
-                    //                    LinearGradient(colors: [.red,.blue],startPoint: .topLeading,endPoint: .bottomTrailing)
-                    //                )
-                    .cornerRadius(9)
-                    .shadow(radius: 4 , x: 2, y: 3)
-                    
-                    .padding()
-                    Button {
-                        
-                        itemListings.listings.append(newHousingListing)
-                        
-                        
-                        self.presentationMode.wrappedValue.dismiss()
-                        
-                    } label: {
-                        Text("add images")
-                            .font(.title2)
-                            .bold()
-                            .foregroundColor(.white)
-                    }
-                    .frame(height:50)
-                    .frame(maxWidth: 300)
-                    .background(Color.blue)
-                    //                .background(
-                    //                    LinearGradient(colors: [.red,.blue],startPoint: .topLeading,endPoint: .bottomTrailing)
-                    //                )
                     .cornerRadius(9)
                     .shadow(radius: 4 , x: 2, y: 3)
                     
@@ -236,7 +203,7 @@ struct HousingPostView: View {
 struct HousingPostView_Previews: PreviewProvider {
     static var previews: some View {
         HousingPostView()
-            .environmentObject(HousingPhotoPickerViewModel())
-            .environmentObject(HousingListing())
+            .environmentObject(PhotoPickerViewModel())
+            .environmentObject(ImgListing())
     }
 }

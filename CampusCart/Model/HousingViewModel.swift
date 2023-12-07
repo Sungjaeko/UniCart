@@ -19,25 +19,54 @@ class HousingViewModel: ObservableObject {
         }
     }
     
-    func saveHousingPostImages(items: [PhotosPickerItem], user: User?,listing: HousingListing){
+    
+    func saveHousingPostImages(items: [PhotosPickerItem], user: User?,listing: HousingListing) async throws -> String{
         guard let user else { print("sorry no user")
-            return
+            return "Error"
         }
+        /*
         Task{
             for item in items{
                 guard let data = try await item.loadTransferable(type:Data.self) else {return}
-                let (path) = try await StorageManager.shared.userSaveHousingImages(data: data, userId: user.id,listing: listing)
+                // Removed "name" from the let statement that used to be included with path inside parentheses
+                let path = try await StorageManager.shared.userSaveImages(data: data, userId: user.id,listing: listing)
                 //let image = UIImage(data: data)
                 //listing.img.append(image!)
                 print("Path from savePostImages:\(path)")
                 
                 //print("Success!!")
                 //listing.imgURL = path
-                
-            }
+                return path
+           }
             
             
-        }
+        }*/
+        var firstPath: String?
+        do {
+               try await withThrowingTaskGroup(of: Void.self) { taskGroup in
+                   for item in items {
+                       guard let data = try await item.loadTransferable(type: Data.self) else {
+                           continue
+                       }
+                       let path = try await HousingStorageManager.shared.userSaveHousingImages(data: data, userId: user.id, listing: listing)
+                       print("Path from savePostImages: \(path)")
+
+                       // Store the path from the first successfully saved image
+                       if firstPath == nil {
+                           firstPath = path
+                       }
+
+                       // You can break the loop if you only want the path from the first image
+                       // taskGroup.cancelAll()
+                   }
+               }
+
+               // Return the path from the first successfully saved image, or a default value
+               return firstPath ?? "No images were successfully saved."
+           } catch {
+               print("Error saving images: \(error)")
+               throw error
+           }
     }
     
 

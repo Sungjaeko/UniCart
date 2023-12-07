@@ -25,7 +25,7 @@ final class HousingStorageManager {
     }
     
     // Saves images in a folder according to user
-    func userSaveImages(data: Data, userId: String, listing: HousingListing) async throws -> (path:String,name:String){
+    func userSaveHousingImages(data: Data, userId: String, listing: HousingListing) async throws -> String{
         let meta = StorageMetadata()
         meta.contentType = "image/jpeg"
         let imgID = "\(UUID().uuidString).jpeg"
@@ -40,13 +40,13 @@ final class HousingStorageManager {
         }
         
         let db = Firestore.firestore()
-        try await db.collection("listings").document().setData(["url":path,
+        try await db.collection("housing").document().setData(["url":path,
                                                                 "title":listing.title,
                                                                 "price":listing.price,
                                                                 "description":listing.description,
                                                                 "id":listing.id])
         listing.upUrl(path: path)
         print("Path from userSaveImages:\(path)")
-        return (returnedPath,returnedName)
+        return (path)
     }
 }

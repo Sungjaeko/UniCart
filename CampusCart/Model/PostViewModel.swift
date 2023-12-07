@@ -69,7 +69,7 @@ class PostViewModel: ObservableObject{
                throw error
            }
     }
-    
+    /*
     func savePostImage(items: [PhotosPickerItem]){
         
         Task{
@@ -81,7 +81,7 @@ class PostViewModel: ObservableObject{
                 print(name)}
             
         }
-    }
+    }*/
     func setImages(from selections: [PhotosPickerItem]) {
         Task {
             var images: [UIImage] = []

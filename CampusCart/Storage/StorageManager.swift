@@ -50,57 +50,5 @@ final class StorageManager{
         return (path)
     }
     
-    func userSaveHousingImages(data: Data, userId: String, listing: HousingListing) async throws -> (path:String,name:String){
-        let meta = StorageMetadata()
-        meta.contentType = "image/jpeg"
-        let imgID = "\(UUID().uuidString).jpeg"
-        let path = "housing/\(userId)/\(imgID)"
-        
- 
-        let returnedMetaData = try await userReference(userId: userId).child(imgID).putDataAsync(data, metadata: meta)
-        
-        
-        guard let returnedPath = returnedMetaData.path, let returnedName = returnedMetaData.name else{
-            throw URLError(.badServerResponse)
-        }
-        
-        let db = Firestore.firestore()
-        try await db.collection("housing").document().setData(["url":path,
-                                                                "title":listing.title,
-                                                                "price":listing.price,
-                                                                "description":listing.description,
-                                                                "id":listing.id])
-        listing.upUrl(path: path)
-        print("Path from userSaveImages:\(path)")
-        return (returnedPath,returnedName)
-    }
-    
-    func userSaveImage(data: Data) async throws -> (path:String,name:String){
-        let meta = StorageMetadata()
-        meta.contentType = "image/jpeg"
-        let path = "\(UUID().uuidString).jpeg"
-        
-        let returnedMetaData = try await imagesReference.child(path).putDataAsync(data, metadata: meta)
-        
-        
-        guard let returnedPath = returnedMetaData.path, let returnedName = returnedMetaData.name else{
-            throw URLError(.badServerResponse)
-        }
-                
-        return (returnedPath,returnedName)
-    }
-    
-    func saveImage(data: Data) async throws -> (path:String,name:String){
-        let meta = StorageMetadata()
-        meta.contentType = "image/jpeg"
-        let path = "\(UUID().uuidString).jpeg"
-        
-        let returnedMetaData = try await storage.child(path).putDataAsync(data, metadata: meta)
-        
-        guard let returnedPath = returnedMetaData.path, let returnedName = returnedMetaData.name else{
-            throw URLError(.badServerResponse)
-        }
-                
-        return (returnedPath,returnedName)
-    }
+   
 }

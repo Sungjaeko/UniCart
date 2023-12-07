@@ -59,7 +59,7 @@ struct LoginView2: View {
                 .opacity(formIsValid ? 1.0 : 0.5)
                 
                 NavigationLink {
-                    SignUpView2()
+                    SignUpView()
                         .navigationBarBackButtonHidden()
                 } label: {
                     HStack(spacing: 3) {
