@@ -60,7 +60,7 @@ struct HomeView: View {
                             Button(action: {
                                 print("Button pressed")
                             }){
-                                NavigationLink(destination:SidejobsView()){
+                                NavigationLink(destination:SidejobsView(posts: [])){
                                     HomeViewButtonView(text: "Side Jobs", imageName: "briefcase", isHolding: isHolding)
                                 }
                             }
